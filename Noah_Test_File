@@ -15,13 +15,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*typedef enum {
+typedef enum {
 skipsym = 1, identsym, numbersym, plussym, minussym,
 multsym, slashsym, fisym, eqsym, neqsym, lessym, leqsym,
 gtrsym, geqsym, lparentsym, rparentsym, commasym, semicolonsym,
 periodsym, becomessym, beginsym, endsym, ifsym, thensym,
 whilesym, dosym, callsym, constsym, varsym, procsym, writesym,
-readsym , elsesym} token_type;*/
+readsym , elsesym} token_type;
 
 
 //numerical value assigned to each token
