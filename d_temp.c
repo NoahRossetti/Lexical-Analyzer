@@ -97,6 +97,28 @@ void insertTrie(char* bufferArr, trieNode* root)
         }
 }
 
+void checkTrie(trieNode* root, char* bufferArr)
+{	
+	trieNode* navigator = root;
+	//TODO: again assuming its null terminated
+	for(int i = 0; bufferArr[i]; i++)
+	{
+		if(navigator->[bufferArr[i] - 'a']) //checks if node exists in the trie
+		{
+			navigator = navigator->[bufferArr[i] - 'a'];
+			if( navigator->isWord == true && !bufferArr[i + 1])
+			{
+				return;
+		}
+		else
+		{
+			//TODO remove debug print statement later
+			printf("\n word not found in trie \n");
+			return;
+		}
+}
+
+
 
 #include <stdio.h>
 #include <stdlib.h>
