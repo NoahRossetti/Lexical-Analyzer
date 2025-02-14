@@ -14,16 +14,89 @@ running list of things to do
 - structure to identify words for lexeme table and token list (relearning all of tries brb)
 
 */
-
-typedef struct trieNode
+typedef struct trieNode trieNode
 {
-	int data;
-	trieNode children[37];
-// wait what if i need to store a number or special character as part of a variable name
-//37 for alphabet + numbers + underscore? is that enough?
+        int data;
+        bool isWord = 0; //default value is 0
+        trieNode* children[37];
+        // values for trie structure are as follows: 
+        // adresses 0-25: alphabet
+        // addresses 26-36: decimal values 0-9
+        // address 37: '_' underscore
 
+        //TODO: if ya find another character that should be represented in the trie lmk pls
 
 }
+
+
+
+void createTrieRoot()
+{
+        trieNode* root = malloc(1 * sizeof(trieNode));
+        return root;
+}
+
+void insertTrie(char* bufferArr, trieNode* root)
+{
+        trieNode* navigator = root;
+
+        //TODO: assuming null terminated by strcpy or something, might need to put a sentinel
+        for(int i = 1; bufferArr[i]; i++)
+        {
+                if(navigator->children[bufferArr[i] - 'a'])
+                {
+                        navigator = navigator->children[bufferArr[i] - 'a'];
+
+                        if(!bufferArr[i + 1])//if the next letter is the terminator, word flag is deployed
+                        {
+                                navigator->isWord = 1;
+                        }
+                }
+                else
+                {
+                        navigator->children[bufferArr[i] - 'a'] = malloc(1 * sizeof(trieNode));
+                        navigator = navigator->children[bufferArr[i] - 'a'];
+
+                        if(!bufferArr[i + 1])//if the next letter is the terminator, word flag is deployed
+                        {
+                                navigator->isWord = 1;
+                        }
+        
+                }
+        }
+}
+
+
+void insertTrie(char* bufferArr, trieNode* root)
+{
+        trieNode* navigator = root;
+
+        //TODO: assuming null terminated by strcpy or something, might need to put a sentinel
+        for(int i = 1; bufferArr[i]; i++)
+        {
+                if(navigator->children[bufferArr[i] - 'a'])
+                {
+                        navigator = navigator->children[bufferArr[i] - 'a'];
+
+                        if(!bufferArr[i + 1])//if the next letter is the terminator, word flag is deployed
+                        {
+                                navigator->isWord = 1;
+                        }
+                }
+                else
+                {
+                        navigator->children[bufferArr[i] - 'a'] = malloc(1 * sizeof(trieNode));
+                        navigator = navigator->children[bufferArr[i] - 'a'];
+
+                        if(!bufferArr[i + 1])//if the next letter is the terminator, word flag is deployed
+                        {
+                                navigator->isWord = 1;
+                        }
+        
+                }
+        }
+}
+
 
 #include <stdio.h>
 #include <stdlib.h>
