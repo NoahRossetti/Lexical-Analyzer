@@ -120,50 +120,51 @@ if(inputfile==NULL){
 
 
 for(i=0;i<cap;i++){
-    
-    if(arrayofinput[i]<'A'&&arrayofinput[i]>20){
-    //if(arrayofinput[i]=='+') printf("+!!!!");
 
-    else if(arrayofinput[i]=='+') printf("%d", plussym);
-    
+    if(arrayofinput[i]<'A'&&arrayofinput[i]>20){
+
+
+    if(arrayofinput[i]=='+') printf("%d", plussym);
+
     else if(arrayofinput[i]=='-') printf("%d", minussym);
-    
+
     else if(arrayofinput[i]=='*') printf("%d", multsym);
-    
+
     else if(arrayofinput[i]==',') printf("%d", commasym);
-    
-    else if(arrayofinput[i]=='=') printf("%d", eqlsym);
-    
+
+    else if(arrayofinput[i]=='=') printf("%d", eqsym);
+
     else if(arrayofinput[i]=='.') printf("%d", periodsym);
-    
+
     else if(arrayofinput[i]=='<') printf("%d", lessym);
-    
+
     else if(arrayofinput[i]=='>') printf("%d", gtrsym);
-    
+
     else if(arrayofinput[i]==';') printf("%d", semicolonsym);
-    
+
     //more to do
     else if(arrayofinput[i]==':'){
-        
+
         if(arrayofinput[i+1]=='='){
-            i++
+            i++;
          printf("%d", becomessym);}
-        
+
         else printf("%d", fisym);
-        
+
     }
-    
-    
-    
-    
+
+
+
+
     else if(arrayofinput[i]=='(') printf("%d", lparentsym);
-    
+
     else if(arrayofinput[i]==')') printf("%d", rparentsym);
-    
+
     }
 
 printf("|");
 }
+
 
 
 
