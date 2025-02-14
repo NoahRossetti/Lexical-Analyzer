@@ -15,7 +15,15 @@ running list of things to do
 
 */
 
+typedef struct trieNode
+{
+	int data;
+	trieNode children[37];
+// wait what if i need to store a number or special character as part of a variable name
+//37 for alphabet + numbers + underscore? is that enough?
 
+
+}
 
 #include <stdio.h>
 #include <stdlib.h>
