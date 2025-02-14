@@ -9,6 +9,7 @@ COP 3402: System Software
 Spring 2025
 Homework #2 (Lexical Analyzer)
 Due Sunday, February 16th, 2025 by 11:59 p.m.
+
 Goal:
 In this assignment your team have to implement a lexical analyzer for the programming
 language PL/0. Your program must be capable to read in a source program written in
@@ -16,10 +17,13 @@ PL/0, identify some errors, and produce, as output, the source program, the sour
 program lexeme table, and the token list. For an example of input and output refer to
 Appendix A. In the next page we show you the grammar for the programming language
 PL/0 using the extended Backus-Naur Form (EBNF).
+
 You will use the given Context Free Grammar (see next page) to identify all symbols the
 programming language provides you with. These symbols are shown below:
 Reserved Words: const, var, procedure, call, begin, end, if, fi, then, else, while, do,
 read, write.
+
+
 Special Symbols: ‘+’, ‘-‘, ‘*’, ‘/’, ‘(‘, ‘)’, ‘=’, ’,’ , ‘.’, ‘ <’, ‘>’, ‘;’ , ’:’ .
 Identifiers: identsym = letter (letter | digit)*
 Numbers: numbersym = (digit)+
@@ -27,9 +31,11 @@ Invisible Characters: tab, white spaces, newline
 Comments denoted by: /* . . . */
 Refer to Appendix B for a declaration of the token symbols that may be useful.
 In this assignment, you will not check syntax.
+
 Example1: program written in PL/0:
 var x, y;
 x := y * 2.
+
 Use these rules to read PL/0 grammar expressed in EBNF.
 1.- [ ] means an optional item,
 2.- { } means repeat 0 or more times.
@@ -38,6 +44,7 @@ Use these rules to read PL/0 grammar expressed in EBNF.
 5.-A period is used to indicate the end of the definition of a syntactic class.
 6.-The symbol ‘::=’ is read as ‘is defined as’; for example, the following syntactic
 class:
+
 program ::= block ".".
 must be read as follows:
 a program is defined as a block followed by a dot.
@@ -217,3 +224,4 @@ Late Submissions:
 • Two Days Late: -20 points
 No email submission will be accepted.
 Annotations
+ 
