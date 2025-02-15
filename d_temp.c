@@ -64,7 +64,7 @@ typedef struct trieNode trieNode
 
 
 
-void createTrieRoot()
+trieNode* createTrieRoot()
 {
         trieNode* root = malloc(1 * sizeof(trieNode));
         return root;
