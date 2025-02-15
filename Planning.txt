@@ -4,7 +4,7 @@
 - detects and ignores whitespace
 - detects and ignores comments
 - detects symbols (and sends them to the lexeme list but im still working on that)
-- detects when something might be a keyword or variable and calls for a dictionary check (also working on the dictionary)
+- detects when something might be a keyword or variable and calls for a dictionary check (requires copying string into a buffer array) (also working on the dictionary)
 - detects when input too large
 - produces error messages
 
@@ -19,4 +19,4 @@
 
 3. token list
 - doesnt seem bad either just gotta build it from the lexeme list
-- list the tokens from the lexeme list, along with any variable names categrized by identsym
+- list the tokens from the lexeme list, along with any variable names categorized under identsym
