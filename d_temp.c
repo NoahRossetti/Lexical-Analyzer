@@ -2,18 +2,9 @@
 
  Noah Rossetti
 
- David Carmo //testing out a trie system to id lexemes on my machine, will upload if it pans out
+ David Carmo
 
 *********************************************************/
-
-
-/*
-running list of things to do
-
-- make running list of things to do
-- structure to identify words for lexeme table and token list (relearning all of tries brb)
-
-*/
 
 #include <stdio.h>
 #include <stdlib.h>
