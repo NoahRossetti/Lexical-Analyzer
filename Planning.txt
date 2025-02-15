@@ -1,0 +1,19 @@
+0. text sorter (overall main function)
+- detects and ignores whitespace
+- detects and ignores comments
+- detects symbols
+- detects when something might be a keyword or variable and calls for a dictionary check
+- detects when input too large
+- produces error messages
+
+1. source file
+- seems easy enough, we just print out the input we used right?
+
+2. lexeme list
+- lexeme list implemented using dynamically allocated 2d array (or maybe just a wasteful massive preset array based on max size idk if he cares)
+- use text sorter to send symbols and their token directly to the lexeme list
+- use trie dictionary to look for keywords
+- if buffer string not found in dicitonary, store in lexeme list and categorize it as identsym (2). (maybe ill add vars to the tree idk)
+
+3. token list
+- doesnt seem bad either just gotta build it from the lexeme list
