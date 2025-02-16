@@ -17,6 +17,14 @@
 - use trie dictionary to look for keywords
 - if buffer string not found in dicitonary, store in lexeme list and categorize it as identsym (decimal value 2). (maybe ill add vars to the trie idk)
 
+Update on lexeme list:
+//dynamically allocated 2d array to store lexemes
+//there is a max char count in one dimension, but we have no clue how long the input could be
+//also the lexeme arrary needs to have 2 lists technically, but ill just make it so that the array alternates in the list
+//as in even addresses are the lexemes and the odd addresses are the tokens or something to that effect
+// then a seperate function to print out the lexeme list
+// which will also double up as the token list generator
+
 3. token list
 - doesnt seem bad either just gotta build it from the lexeme list
 - list the tokens from the lexeme list, along with any variable names categorized under identsym
