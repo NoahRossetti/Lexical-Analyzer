@@ -1,6 +1,9 @@
+// trie dictionary attempt
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef enum 
 {
@@ -29,13 +32,15 @@ char* loadWords[] = {
 "period", "becomes", "begin", "ends", "if", "then",
 "while", "do", "call", "const", "var", "proc", "write",
 "read" , "else"
-}
+};
 
-typedef struct trieNode trieNode
+typedef struct trieNode trieNode;
+
+struct trieNode 
 {
         int data;
-        bool isWord = 0; //default value is 0
-        trieNode* children[37];
+        int isWord;
+        trieNode* child[37];
         // values for trie structure are as follows: 
         // adresses 0-25: alphabet
         // addresses 26-36: decimal values 0-9
@@ -43,26 +48,27 @@ typedef struct trieNode trieNode
 
         //TODO: if ya find another character that should be represented in the trie lmk pls
 
-}
+};
 
 
-
-trieNode* createTrieRoot()
+trieNode* createNode()
 {
-        trieNode* root = malloc(1 * sizeof(trieNode));
-        return root;
+    trieNode* node = malloc(sizeof(trieNode));
+    node->isWord = 0;
+    return node;
 }
 
-void insertTrie(char* bufferArr, trieNode* root)
+
+void insertTrie(trieNode* root, char* bufferArr)
 {
         trieNode* navigator = root;
 
         //TODO: assuming null terminated by strcpy or something, might need to put a sentinel
         for(int i = 1; bufferArr[i]; i++)
         {
-                if(navigator->children[bufferArr[i] - 'a'])
+                if(navigator->child[bufferArr[i] - 'a'])
                 {
-                        navigator = navigator->children[bufferArr[i] - 'a'];
+                        navigator = navigator->child[bufferArr[i] - 'a'];
 
                         if(!bufferArr[i + 1])//if the next letter is the terminator, word flag is deployed
                         {
@@ -71,8 +77,8 @@ void insertTrie(char* bufferArr, trieNode* root)
                 }
                 else
                 {
-                        navigator->children[bufferArr[i] - 'a'] = malloc(1 * sizeof(trieNode));
-                        navigator = navigator->children[bufferArr[i] - 'a'];
+                        navigator->child[bufferArr[i] - 'a'] = createNode();
+                        navigator = navigator->child[bufferArr[i] - 'a'];
 
                         if(!bufferArr[i + 1])//if the next letter is the terminator, word flag is deployed
                         {
@@ -85,26 +91,66 @@ void insertTrie(char* bufferArr, trieNode* root)
 
 
 
-bool checkTrie(trieNode* root, char* bufferArr)
+int checkTrie(trieNode* root, char* bufferArr)
 {	
 	trieNode* navigator = root;
 	//TODO: again assuming its null terminated
 	for(int i = 0; bufferArr[i]; i++)
 	{
-		if(navigator->[bufferArr[i] - 'a']) //checks if node exists in the trie
+		if(navigator->child[bufferArr[i] - 'a']) //checks if next node exists in the trie
 		{
-			navigator = navigator->[bufferArr[i] - 'a'];
+			navigator = navigator->child[bufferArr[i] - 'a'];
 			if( navigator->isWord == true && !bufferArr[i + 1])
 			{
-				return true;
+				return 1;
+            }
 		}
-		else
+		else //if next node does not exist in the trie 
 		{
 			//TODO remove debug print statement later
 			printf("\n REMOVE LATER word not found in trie \n");
-			return false;
+			return 0;
 		}
+    }
 }
 
 
+void deleteTrie(trieNode* root)
+{
+    if(!root) // if root is null, function ends
+    {
+        return;
+    }
 
+    for(int i = 0; i < 37; i++)
+    {
+        if(root->child[i]) // if child node exists, call the function recursively on that subtrie
+        {
+            deleteTrie(root->child[i]);
+        }
+    }
+
+    free(root);
+    return;
+}
+
+void main()
+{
+    char inputArr[50] = {"start"};
+
+    trieNode* root = createNode();
+    
+    while(strcmp(inputArr, "quit"))
+    {
+        scanf("%s", inputArr);
+
+        printf("\n%s\n", inputArr);
+
+        insertTrie(root, inputArr);
+
+        printf("\nis the string ''%s'' present in the trie: %d\n", inputArr, checkTrie(root, inputArr));
+        
+    }
+
+    deleteTrie(root);
+}
