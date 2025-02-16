@@ -176,7 +176,7 @@ for(i=0;i<cap;i++){
 
         //this finds the length of the integer to make sure it is valid
         j = i;
-        while(arrayofinput[j]>'/'&&arrayofinput[i]<='9'){
+        while(arrayofinput[j]>'/'&&arrayofinput[j]<='9'){
 
 
             j++;
