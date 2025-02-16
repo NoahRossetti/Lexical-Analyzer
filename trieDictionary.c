@@ -25,6 +25,7 @@ beginsym = 21, endsym = 22, ifsym = 23, thensym = 24, whilesym = 25, dosym = 26,
 callsym = 27, constsym = 28, varsym = 29, procsym = 30, writesym = 31,
 readsym = 32, elsesym = 33.*/
 
+/*
 char* loadWords[] = {
 "skip" , "ident" , "number", "plus", "minus",
 "mult", "slash" , "fi", "eq", "neq", "les", "leq",
@@ -33,9 +34,8 @@ char* loadWords[] = {
 "while", "do", "call", "const", "var", "proc", "write",
 "read" , "else"
 };
+*/
 
-char *words[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
-"odd", "procedure", "read", "then", "var", "while", "write"};
 
 // begin = 21, call = 27, const = 28, var = 29, 
 
@@ -144,6 +144,9 @@ void deleteTrie(trieNode* root)
 void main()
 {
     char inputArr[50] = {"start"};
+
+    char *words[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
+                        "odd", "procedure", "read", "then", "var", "while", "write"};
 
     trieNode* root = createNode();
 
