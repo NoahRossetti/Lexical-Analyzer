@@ -34,6 +34,9 @@ char* loadWords[] = {
 "read" , "else"
 };
 
+char *words[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
+"odd", "procedure", "read", "then", "var", "while", "write"};
+
 typedef struct trieNode trieNode;
 
 struct trieNode 
@@ -146,14 +149,19 @@ void main()
     {
         printf("\nroot exists!\n");
     }
+
+
+    for(int i = 0; i < 15; i++)
+    {
+        insertTrie(root, words[i]);
+        printf("\n%s\n", words[i]);
+    }
+
     
     while(strcmp(inputArr, "quit"))
     {
         scanf("%s", inputArr);
 
-        printf("\n%s\n", inputArr);
-
-        insertTrie(root, inputArr);
 
         printf("\nis the string ''%s'' present in the trie: %d\n", inputArr, checkTrie(root, inputArr));
 
