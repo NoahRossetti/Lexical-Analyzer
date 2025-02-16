@@ -63,6 +63,7 @@ char *word[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
 
 
 FILE *inputfile = fopen("input", "r");
+FILE *outputfile = fopen("output", "w");
 
   // Lets us know if there is a problem retrieving file ( will remove later )
 if(inputfile==NULL){
@@ -71,9 +72,23 @@ if(inputfile==NULL){
 	return 0;
 }
 
+if(outputfile==NULL){
+    printf("no file ");
+
+	return 0;
+}
+
+//while ((test = fgetc(inputfile)) != EOF) {
+
+ //fprintf(outputfile,"%c",test);
+
+
+//}
 
 // removes invisble characters, comments and whitespaces from text
  while ((test = fgetc(inputfile)) != EOF) {
+         fprintf(outputfile,"%c",test);
+
         //removes white spaces
         if(test==' ') continue;
 
@@ -153,13 +168,13 @@ for(i=0;i<cap;i++){
 
     //more to do
     else if(arrayofinput[i]==':'){
-   
+        printf("made it here");
 
         if(arrayofinput[i+1]=='='){
             i++;
-         printf(" %d", becomessym);}
+         printf(" becomesym %d", becomessym);}
 
-        else printf(" %d", fisym);
+        else printf(" bb %d", fisym);
 
     }
 
@@ -180,10 +195,13 @@ for(i=0;i<cap;i++){
 
 
             j++;
-
+            //printf(" i:%d j:%d character:%c ", i, j, arrayofinput[j]);
         }
 
-        if(j<i+5){
+        //printf(" i:%d j:%d ", i, j);
+
+
+        if(i<i+5){
                 printf(" %d ", numbersym);
             for(int k = i; k<j; k++) printf("%c", arrayofinput[k]);
             i=j-1;
@@ -197,7 +215,16 @@ for(i=0;i<cap;i++){
 
     else printf(" Invalid symbol ");
     }
+    else{
 
+
+
+
+
+
+        printf(" word |");
+
+    }
 
 
 
@@ -232,4 +259,3 @@ printf("|");
 return 0;
 
 }
-
