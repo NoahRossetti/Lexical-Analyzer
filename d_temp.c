@@ -64,15 +64,16 @@ void insertTrie(trieNode* root, char* bufferArr)
         trieNode* navigator = root;
 
         //TODO: assuming null terminated by strcpy or something, might need to put a sentinel
-        for(int i = 1; bufferArr[i]; i++)
+        for(int i = 0; bufferArr[i]; i++)
         {
                 if(navigator->child[bufferArr[i] - 'a'])
                 {
                         navigator = navigator->child[bufferArr[i] - 'a'];
 
-                        if(!bufferArr[i + 1])//if the next letter is the terminator, word flag is deployed
+                        if(!(bufferArr[i + 1]))//if the next letter is the terminator, word flag is deployed
                         {
                                 navigator->isWord = 1;
+                                printf("\nstring: %s inserted!\n", bufferArr);
                         }
                 }
                 else
@@ -134,11 +135,17 @@ void deleteTrie(trieNode* root)
     return;
 }
 
+
 void main()
 {
     char inputArr[50] = {"start"};
 
     trieNode* root = createNode();
+
+    if(root != NULL)
+    {
+        printf("\nroot exists!\n");
+    }
     
     while(strcmp(inputArr, "quit"))
     {
@@ -149,7 +156,7 @@ void main()
         insertTrie(root, inputArr);
 
         printf("\nis the string ''%s'' present in the trie: %d\n", inputArr, checkTrie(root, inputArr));
-        
+
     }
 
     deleteTrie(root);
