@@ -39,8 +39,9 @@ readsym = 32, elsesym = 33.*/
 int main(int argc, char *argv[]){
 
 
-
-
+//int length_tracker;
+int j;
+int cap;
 int i=0;
 int commentflag=0;
 char temp;
@@ -114,12 +115,20 @@ if(inputfile==NULL){
             printf("%c", arrayofinput[i]);
             i++;
         }
-
+    cap=i;
     }
 
 
 
+
+
+
 for(i=0;i<cap;i++){
+
+//might need to add more symbols
+
+
+
 
     if(arrayofinput[i]<'A'&&arrayofinput[i]>20){
 
@@ -144,12 +153,13 @@ for(i=0;i<cap;i++){
 
     //more to do
     else if(arrayofinput[i]==':'){
+        printf("mad it her");
 
         if(arrayofinput[i+1]=='='){
             i++;
-         printf("%d", becomessym);}
+         printf(" noah %d", becomessym);}
 
-        else printf("%d", fisym);
+        else printf(" bb %d", fisym);
 
     }
 
@@ -160,7 +170,40 @@ for(i=0;i<cap;i++){
 
     else if(arrayofinput[i]==')') printf("%d", rparentsym);
 
+
+    // This will identify and tokenize integers
+  else if(arrayofinput[i]=='0'||arrayofinput[i]=='1'||arrayofinput[i]=='2'||arrayofinput[i]=='3'||arrayofinput[i]=='4'||arrayofinput[i]=='5'||arrayofinput[i]=='6'||arrayofinput[i]=='7'||arrayofinput[i]=='8'||arrayofinput[i]=='9'){
+
+        //this finds the length of the integer to make sure it is valid
+        j = i;
+        while(arrayofinput[j]>'/'&&arrayofinput[i]<='9'){
+
+
+            j++;
+
+        }
+
+        if(j<i+5){
+                printf(" %d ", numbersym);
+            for(int k = i; k<j; k++) printf("%c", arrayofinput[k]);
+            i=j-1;
+
+        }
+
+        else printf(" error: integer too long ");
+
+
     }
+
+    else printf(" Invalid symbol ");
+    }
+
+
+
+
+
+
+
 
 printf("|");
 }
@@ -189,3 +232,4 @@ printf("|");
 return 0;
 
 }
+
