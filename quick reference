@@ -1,4 +1,28 @@
 
+
+UPDATE FROM TA
+*********************************************************************************************************************************************************************************************
+Clarification on Comments Definition and Interpretation for HW2
+
+Dear all
+
+ 
+
+The comments in our assignments and projects are recognized only if they are properly enclosed between /* and */. Any text outside of these markers should be treated as regular tokens and parsed accordingly.
+
+    // as single line comments: We do not treat // as a valid comment definition in this course.
+    Multi-line comments: Yes, we must handle them as they may span multiple lines, as long as they are properly enclosed between /* and */.
+    Improperly enclosed comments: If we never encounter a closing */, the tokens (including /*) should be parsed independently (e.g., slashsym, multsym, identifier, etc.).
+
+Please review these guidelines carefully to ensure your implementation aligns with the specified rules.
+
+ 
+
+Sincerely,
+
+Jie Lin
+
+********************************************************************************************************************************************************************************************
 DocViewer
 Page
 of 8
