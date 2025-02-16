@@ -153,13 +153,13 @@ for(i=0;i<cap;i++){
 
     //more to do
     else if(arrayofinput[i]==':'){
-        printf("mad it her");
+   
 
         if(arrayofinput[i+1]=='='){
             i++;
-         printf(" noah %d", becomessym);}
+         printf(" %d", becomessym);}
 
-        else printf(" bb %d", fisym);
+        else printf(" %d", fisym);
 
     }
 
