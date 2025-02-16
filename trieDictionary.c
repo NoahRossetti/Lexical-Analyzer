@@ -37,11 +37,13 @@ char* loadWords[] = {
 char *words[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
 "odd", "procedure", "read", "then", "var", "while", "write"};
 
+// begin = 21, call = 27, const = 28, var = 29, 
+
 typedef struct trieNode trieNode;
 
 struct trieNode 
 {
-        int data;
+        int token;
         int isWord;
         trieNode* child[37];
         // values for trie structure are as follows: 
