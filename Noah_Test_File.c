@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h>
 
 typedef enum {
 skipsym = 1, identsym, numbersym, plussym, minussym,
@@ -125,8 +126,8 @@ int checkTrie(trieNode* root, char* bufferArr)
 		else //if next node does not exist in the trie
 		{
 			//TODO remove debug print statement later
-			printf(" %s ", bufferArr);
-			printf("\n REMOVE LATER word not found in trie \n");
+			//printf(" %s ", bufferArr);
+			//printf("\n REMOVE LATER word not found in trie \n");
 			return 0;
 		}
     }
@@ -161,34 +162,10 @@ void deleteTrie(trieNode* root)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 int main(int argc, char *argv[]){
 trieNode* root = createNode();
 
-//int length_tracker;
+// int length_tracker;
 char inputArr[50] = {"start"};
 int j;
 int cap;
@@ -196,7 +173,8 @@ int i=0;
 int commentflag=0;
 char temp;
 char test;
-//output array position tracker
+char window[12];
+// output array position tracker
 int opt;
 int outputarray[1000];
 char arrayofinput[1000];
@@ -207,9 +185,7 @@ char *words[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
 
 
 
-//for (int i = 0; i < argc; i++) {
-  //      printf("%s\n", argv[i]);
-    //}
+
 
 
 
@@ -242,34 +218,8 @@ char *words[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 FILE *inputfile = fopen("input.txt", "r");
+
 FILE *outputfile = fopen("output", "w");
 
   // Lets us know if there is a problem retrieving file ( will remove later )
@@ -285,12 +235,7 @@ if(outputfile==NULL){
 	return 0;
 }
 
-//while ((test = fgetc(inputfile)) != EOF) {
 
- //fprintf(outputfile,"%c",test);
-
-
-//}
 
 // removes invisble characters, comments and whitespaces from text
  while ((test = fgetc(inputfile)) != EOF) {
@@ -375,16 +320,16 @@ for(i=0;i<cap;i++){
 
     //more to do
     else if(arrayofinput[i]==':'){
-        printf("made it here");
+
 
         if(arrayofinput[i+1]=='='){
             i++;
             opt++;
-         printf(" becomesym %d", becomessym);
+         printf("%d", becomessym);
          outputarray[opt]=becomessym;
          }
 
-        else{ printf(" bb %d", fisym); outputarray[opt]=fisym;}
+        else{ printf("%d", fisym); outputarray[opt]=fisym;}
 
     }
 
@@ -402,24 +347,19 @@ for(i=0;i<cap;i++){
         //this finds the length of the integer to make sure it is valid
         j = i;
         while(arrayofinput[j]>'/'&&arrayofinput[j]<='9'){
-
-
             j++;
-            //printf(" i:%d j:%d character:%c ", i, j, arrayofinput[j]);
         }
-
-        //printf(" i:%d j:%d ", i, j);
 
 
         if(j<i+5){
-        char integerconverter[6];
-        int convertednumber;
-        int arrayfiller=0;
+            char integerconverter[6];
+            int convertednumber;
+            int arrayfiller=0;
                 printf(" %d ", numbersym);
                 outputarray[opt]=numbersym;
             for(int k = i; k<j; k++){ printf("%c", arrayofinput[k]);
-            integerconverter[arrayfiller]=arrayofinput[k];
-            arrayfiller++;
+                integerconverter[arrayfiller]=arrayofinput[k];
+                arrayfiller++;
 
 
             }
@@ -430,44 +370,52 @@ for(i=0;i<cap;i++){
             outputarray[opt]=convertednumber;
             printf(" %d ", convertednumber);
         }
-
+        //need to make this insert -777 iterate opt
         else printf(" error: integer too long ");
 
 
     }
 
+    //need to make this insert number 3 then -777 iterate opt
     else printf(" Invalid symbol ");
     }
-    else{
 
-    //This is to differentiate between integers and  reserved
-    /*if(arrayofinput[i]>='a'&&arrayofinput[i]<='z'){
-            int j =i;
-    while(arrayofinput[j]>='a'&&arrayofinput[j]<='z'){
-        char id_res[12];
+    //seperates words and identifiers
+    else if (isalpha(arrayofinput[i])){
 
-        int k=0;
-        //i++;
+         for(int k = i; arrayofinput[k]; k ++)
+    {
+        if(isalpha(arrayofinput[k])==0&&isdigit(arrayofinput[k])==0) break;
+        int spaceLeft = 0;
 
-        while(arrayofinput[j]>='a'&&arrayofinput[j]<='z'){
-             id_res[k] = arrayofinput[j];
-              j++;
-              k++;
-              printf(" %s ", id_res);
-            printf("\nis the string ''%s'' present in the trie: %d\n", id_res, checkTrie(root, id_res));
+        while(arrayofinput[k + spaceLeft] && spaceLeft < 11)
+        {
+            if(isalpha(arrayofinput[k + spaceLeft])==0&&isdigit(arrayofinput[k + spaceLeft])==0) break;
+            spaceLeft++;
         }
 
-    j++;
+        for(int l = 0; l < spaceLeft ; l++)
+        {
+            if(isalpha(arrayofinput[k + l])==0&&isdigit(arrayofinput[k + l])==0) break;
+            window[l] = arrayofinput[k + l];
+        }
+        window[spaceLeft] = '\0';
+        //printf("\nwindow is:%s\n", window);
+
+        for(int l = 0; l < spaceLeft; l++)
+        {
+            char buffer[12];
+            buffer[0] = '\0';
+            strncat(buffer, window, l + 1);
+            printf("\nbuffer is:%s\n", buffer);
+         if(checkTrie(root, buffer)){
+            i+strlen(buffer);
+          printf("reserved word found ");
 
 
-
-
+          }
+        }
     }
-    }
-    */
-
-        printf(" word |");
-         //opt++;
     }
 
 
@@ -481,7 +429,7 @@ opt++;
 }
 
 printf(" \n ");
-for(i=0;i<cap+1;i++){
+for(i=0;i<opt;i++){
 
 
     printf("%d ", outputarray[i]);
@@ -508,5 +456,4 @@ for(i=0;i<cap+1;i++){
 return 0;
 
 }
-
 
