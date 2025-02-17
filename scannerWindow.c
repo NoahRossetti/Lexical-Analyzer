@@ -9,29 +9,27 @@ void main()
 
     for(int i = 0; inputArr[i]; i ++)
     {   
-        int space = 1;
+        int spaceLeft = 0;
 
-        while(inputArr[i + space] != '\0' && space <= 11)
+        while(inputArr[i + spaceLeft] && spaceLeft < 11)
         {
-            space++;
-            printf("\nspace is:%d\n", space);
+            spaceLeft++;
+            printf("\nspaceLeft is:%d\n", spaceLeft);
         }
 
-        for(int k = 0; k < space ; k++)
+        for(int k = 0; k < spaceLeft ; k++)
         {
             window[k] = inputArr[i + k];
-            printf("\nk is: %d", k);
         }
-        window[space + 1] = '\0';
+        window[spaceLeft] = '\0';
         printf("\nwindow is:%s\n", window);
 
-        for(int k = 0; k < space; k++)
+        for(int k = 0; k < spaceLeft; k++)
         {
             char bufferArr[12];
             bufferArr[0] = '\0';
             strncat(bufferArr, window, k + 1);
             printf("\nbuffer is:%s\n", bufferArr);
-            printf("\nk is: %d", k);
         }
     }
 
