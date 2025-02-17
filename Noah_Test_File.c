@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 typedef enum {
 skipsym = 1, identsym, numbersym, plussym, minussym,
@@ -36,10 +37,159 @@ readsym = 32, elsesym = 33.*/
 
 
 
-int main(int argc, char *argv[]){
 
+
+
+
+
+
+
+
+
+
+
+
+
+typedef struct trieNode trieNode;
+
+struct trieNode
+{
+        int token;
+        int isWord;
+        trieNode* child[37];
+        // values for trie structure are as follows:
+        // adresses 0-25: alphabet
+        // addresses 26-36: decimal values 0-9
+        // address 37: '_' underscore
+
+        //TODO: if ya find another character that should be represented in the trie lmk pls
+
+};
+
+
+trieNode* createNode()
+{
+    trieNode* node = malloc(sizeof(trieNode));
+    node->isWord = 0;
+    return node;
+}
+
+
+void insertTrie(trieNode* root, char* bufferArr)
+{
+        trieNode* navigator = root;
+
+        //TODO: assuming null terminated by strcpy or something, might need to put a sentinel
+        for(int i = 0; bufferArr[i]; i++)
+        {
+                if(navigator->child[bufferArr[i] - 'a'])
+                {
+                        navigator = navigator->child[bufferArr[i] - 'a'];
+
+                        if(!(bufferArr[i + 1]))//if the next letter is the terminator, word flag is deployed
+                        {
+                                navigator->isWord = 1;
+                                printf("\nstring: %s inserted!\n", bufferArr);
+                        }
+                }
+                else
+                {
+                        navigator->child[bufferArr[i] - 'a'] = createNode();
+                        navigator = navigator->child[bufferArr[i] - 'a'];
+
+                        if(!bufferArr[i + 1])//if the next letter is the terminator, word flag is deployed
+                        {
+                                navigator->isWord = 1;
+                        }
+
+                }
+        }
+}
+
+
+
+int checkTrie(trieNode* root, char* bufferArr)
+{
+	trieNode* navigator = root;
+	//TODO: again assuming its null terminated
+	for(int i = 0; bufferArr[i]; i++)
+	{
+		if(navigator->child[bufferArr[i] - 'a']) //checks if next node exists in the trie
+		{
+			navigator = navigator->child[bufferArr[i] - 'a'];
+			if( navigator->isWord == true && !bufferArr[i + 1])
+			{
+				return 1;
+            }
+		}
+		else //if next node does not exist in the trie
+		{
+			//TODO remove debug print statement later
+			printf("\n REMOVE LATER word not found in trie \n");
+			return 0;
+		}
+    }
+}
+
+
+void deleteTrie(trieNode* root)
+{
+    if(!root) // if root is null, function ends
+    {
+        return;
+    }
+
+    for(int i = 0; i < 37; i++)
+    {
+        if(root->child[i]) // if child node exists, call the function recursively on that subtrie
+        {
+            deleteTrie(root->child[i]);
+        }
+    }
+
+    free(root);
+    return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int main(int argc, char *argv[]){
+trieNode* root = createNode();
 
 //int length_tracker;
+char inputArr[50] = {"start"};
 int j;
 int cap;
 int i=0;
@@ -50,7 +200,7 @@ char output[100];
 char arrayofinput[1000];
 char identifierTable[100][12];
 
-char *word[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
+char *words[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
 "odd", "procedure", "read", "then", "var", "while", "write"};
 
 
@@ -58,6 +208,61 @@ char *word[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
 //for (int i = 0; i < argc; i++) {
   //      printf("%s\n", argv[i]);
     //}
+
+
+
+
+     if(root != NULL)
+    {
+        printf("\nroot exists!\n");
+    }
+
+
+    for(int i = 0; i < 15; i++)
+    {
+        insertTrie(root, words[i]);
+        printf("\n%s\n", words[i]);
+    }
+
+
+    while(strcmp(inputArr, "quit"))
+    {
+        scanf("%s", inputArr);
+
+
+        printf("\nis the string ''%s'' present in the trie: %d\n", inputArr, checkTrie(root, inputArr));
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -221,7 +426,6 @@ for(i=0;i<cap;i++){
 
 
 
-
         printf(" word |");
 
     }
@@ -248,7 +452,7 @@ printf("|");
 
 
 
-
+   deleteTrie(root);
 
 
 
