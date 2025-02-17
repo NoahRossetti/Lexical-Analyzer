@@ -1,4 +1,4 @@
-********************************************************
+/********************************************************
 
  Noah Rossetti
 
@@ -149,7 +149,6 @@ void deleteTrie(trieNode* root)
     }
 
     free(root);
-    return;
 }
 
 
@@ -197,7 +196,9 @@ int i=0;
 int commentflag=0;
 char temp;
 char test;
-char output[100];
+//output array position tracker
+int opt;
+int outputarray[1000];
 char arrayofinput[1000];
 char identifierTable[100][12];
 
@@ -268,7 +269,7 @@ char *words[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
 
 
 
-FILE *inputfile = fopen("input", "r");
+FILE *inputfile = fopen("input.txt", "r");
 FILE *outputfile = fopen("output", "w");
 
   // Lets us know if there is a problem retrieving file ( will remove later )
@@ -354,23 +355,23 @@ for(i=0;i<cap;i++){
     if(arrayofinput[i]<'A'&&arrayofinput[i]>20){
 
 
-    if(arrayofinput[i]=='+') printf("%d", plussym);
+    if(arrayofinput[i]=='+'){ printf("%d", plussym); outputarray[opt]=plussym;}
 
-    else if(arrayofinput[i]=='-') printf("%d", minussym);
+    else if(arrayofinput[i]=='-') { printf("%d", minussym); outputarray[opt]=minussym;}
 
-    else if(arrayofinput[i]=='*') printf("%d", multsym);
+    else if(arrayofinput[i]=='*') {printf("%d", multsym); outputarray[opt]=multsym;}
 
-    else if(arrayofinput[i]==',') printf("%d", commasym);
+    else if(arrayofinput[i]==','){ printf("%d", commasym); outputarray[opt]=commasym;}
 
-    else if(arrayofinput[i]=='=') printf("%d", eqsym);
+    else if(arrayofinput[i]=='='){ printf("%d", eqsym); outputarray[opt]=eqsym;}
 
-    else if(arrayofinput[i]=='.') printf("%d", periodsym);
+    else if(arrayofinput[i]=='.'){ printf("%d", periodsym); outputarray[opt]=periodsym;}
 
-    else if(arrayofinput[i]=='<') printf("%d", lessym);
+    else if(arrayofinput[i]=='<'){printf("%d", lessym); outputarray[opt]=lessym;}
 
-    else if(arrayofinput[i]=='>') printf("%d", gtrsym);
+    else if(arrayofinput[i]=='>'){ printf("%d", gtrsym); outputarray[opt]=gtrsym;}
 
-    else if(arrayofinput[i]==';') printf("%d", semicolonsym);
+    else if(arrayofinput[i]==';'){ printf("%d", semicolonsym); outputarray[opt]=semicolonsym;}
 
     //more to do
     else if(arrayofinput[i]==':'){
@@ -378,18 +379,21 @@ for(i=0;i<cap;i++){
 
         if(arrayofinput[i+1]=='='){
             i++;
-         printf(" becomesym %d", becomessym);}
+            opt++;
+         printf(" becomesym %d", becomessym);
+         outputarray[opt]=becomessym;
+         }
 
-        else printf(" bb %d", fisym);
+        else{ printf(" bb %d", fisym); outputarray[opt]=fisym;}
 
     }
 
 
 
 
-    else if(arrayofinput[i]=='(') printf("%d", lparentsym);
+    else if(arrayofinput[i]=='('){ printf("%d", lparentsym); outputarray[opt]=lparentsym;}
 
-    else if(arrayofinput[i]==')') printf("%d", rparentsym);
+    else if(arrayofinput[i]==')'){ printf("%d", rparentsym); outputarray[opt]=rparentsym;}
 
 
     // This will identify and tokenize integers
@@ -407,11 +411,24 @@ for(i=0;i<cap;i++){
         //printf(" i:%d j:%d ", i, j);
 
 
-        if(i<i+5){
+        if(j<i+5){
+        char integerconverter[6];
+        int convertednumber;
+        int arrayfiller=0;
                 printf(" %d ", numbersym);
-            for(int k = i; k<j; k++) printf("%c", arrayofinput[k]);
-            i=j-1;
+                outputarray[opt]=numbersym;
+            for(int k = i; k<j; k++){ printf("%c", arrayofinput[k]);
+            integerconverter[arrayfiller]=arrayofinput[k];
+            arrayfiller++;
 
+
+            }
+            //converts number from string to int
+            convertednumber=atoi(integerconverter);
+            opt++;
+            i=j-1;
+            outputarray[opt]=convertednumber;
+            printf(" %d ", convertednumber);
         }
 
         else printf(" error: integer too long ");
@@ -423,12 +440,12 @@ for(i=0;i<cap;i++){
     }
     else{
 
-    //This is to differentiate between integers and  rese
-    if(arrayofinput[i]>='a'&&arrayofinput[i]<='z'){
+    //This is to differentiate between integers and  reserved
+    /*if(arrayofinput[i]>='a'&&arrayofinput[i]<='z'){
             int j =i;
     while(arrayofinput[j]>='a'&&arrayofinput[j]<='z'){
-        char id_res[11]={0};
-        
+        char id_res[12];
+
         int k=0;
         //i++;
 
@@ -437,20 +454,20 @@ for(i=0;i<cap;i++){
               j++;
               k++;
               printf(" %s ", id_res);
-            checkTrie(root, id_res);
+            printf("\nis the string ''%s'' present in the trie: %d\n", id_res, checkTrie(root, id_res));
         }
 
-    j++
+    j++;
 
 
 
 
     }
     }
-
+    */
 
         printf(" word |");
-
+         //opt++;
     }
 
 
@@ -460,10 +477,15 @@ for(i=0;i<cap;i++){
 
 
 printf("|");
+opt++;
 }
 
+printf(" \n ");
+for(i=0;i<cap+1;i++){
 
 
+    printf("%d ", outputarray[i]);
+}
 
 
 
@@ -486,4 +508,5 @@ printf("|");
 return 0;
 
 }
+
 
