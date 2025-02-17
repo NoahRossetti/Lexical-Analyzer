@@ -28,3 +28,7 @@ Update on lexeme list:
 3. token list
 - doesnt seem bad either just gotta build it from the lexeme list
 - list the tokens from the lexeme list, along with any variable names categorized under identsym
+
+4. documentation
+
+5. comments and formatting
