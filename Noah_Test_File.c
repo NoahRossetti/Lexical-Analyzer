@@ -1,4 +1,4 @@
-/********************************************************
+********************************************************
 
  Noah Rossetti
 
@@ -125,6 +125,7 @@ int checkTrie(trieNode* root, char* bufferArr)
 		else //if next node does not exist in the trie
 		{
 			//TODO remove debug print statement later
+			printf(" %s ", bufferArr);
 			printf("\n REMOVE LATER word not found in trie \n");
 			return 0;
 		}
@@ -422,8 +423,30 @@ for(i=0;i<cap;i++){
     }
     else{
 
+    //This is to differentiate between integers and  rese
+    if(arrayofinput[i]>='a'&&arrayofinput[i]<='z'){
+            int j =i;
+    while(arrayofinput[j]>='a'&&arrayofinput[j]<='z'){
+        char id_res[11]={0};
+        
+        int k=0;
+        //i++;
+
+        while(arrayofinput[j]>='a'&&arrayofinput[j]<='z'){
+             id_res[k] = arrayofinput[j];
+              j++;
+              k++;
+              printf(" %s ", id_res);
+            checkTrie(root, id_res);
+        }
+
+    j++
 
 
+
+
+    }
+    }
 
 
         printf(" word |");
@@ -463,3 +486,4 @@ printf("|");
 return 0;
 
 }
+
