@@ -57,7 +57,8 @@ struct trieNode
         int token;
         int isWord;
         trieNode* child[37];
-        // values for trie structure are as follows:/********************************************************
+        // values for trie structure are as follows:
+/********************************************************
 
  Noah Rossetti
 
