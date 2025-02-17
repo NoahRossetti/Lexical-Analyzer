@@ -435,12 +435,34 @@ for(i=0;i<cap;i++){
 
     else printf(" Invalid symbol ");
     }
-    else{
+       else if (isalpha(arrayofinput[i])){
 
-  
+         for(int k = i; arrayofinput[k]; k ++)
+    {
+        int spaceLeft = 0;
 
-        printf(" word |");
-         //opt++;
+        while(arrayofinput[k + spaceLeft] && spaceLeft < 11)
+        {
+            if(isalpha(arrayofinput[k + spaceLeft])==0&&isdigit(arrayofinput[k + spaceLeft])==0) break;
+            spaceLeft++;
+        }
+
+        for(int l = 0; l < spaceLeft ; l++)
+        {
+            window[l] = arrayofinput[k + l];
+        }
+        window[spaceLeft] = '\0';
+        //printf("\nwindow is:%s\n", window);
+
+        for(int l = 0; l < spaceLeft; l++)
+        {
+            char buffer[12];
+            buffer[0] = '\0';
+            strncat(buffer, window, l + 1);
+            printf("\nbuffer is:%s\n", buffer);
+         if(checkTrie(root, buffer)) printf("reserved word found ");
+        }
+    }
     }
 
 
