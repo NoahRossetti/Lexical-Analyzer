@@ -3,8 +3,8 @@
 0. text sorter (overall main function)
 - detects and ignores whitespace
 - detects and ignores comments
-- detects symbols (and sends them to the lexeme list but im still working on that)
-- detects when something might be a keyword or variable and calls for a dictionary check (requires copying string into a buffer array) (also working on the dictionary)
+- detects symbols
+- detects when something might be a keyword or variable and calls for a dictionary check
 - detects when input too large
 - produces error messages
 
