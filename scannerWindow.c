@@ -14,7 +14,6 @@ void main()
         while(inputArr[i + spaceLeft] && spaceLeft < 11)
         {
             spaceLeft++;
-            printf("\nspaceLeft is:%d\n", spaceLeft);
         }
 
         for(int k = 0; k < spaceLeft ; k++)
