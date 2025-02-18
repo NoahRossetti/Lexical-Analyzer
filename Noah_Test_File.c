@@ -291,7 +291,7 @@ if(outputfile==NULL){
 
 
 for(i=0;i<cap;i++){
-
+printf(" i top of loop: %d ", i);
 //might need to add more symbols
 
 
@@ -427,6 +427,7 @@ for(i=0;i<cap;i++){
         finalk=k;
         printf(" %d ", k);
          printf(" %d ", i);
+         if(wordfound==1) break;
     }
 
     printf("final %d ", finalk);
@@ -435,16 +436,20 @@ for(i=0;i<cap;i++){
         foundidentifier[k-i]=arrayofinput[k];
 
     i=finalk;
+    printf(" i after no word: %d ", i);
     }
-    else if(finalk>i&&wordfound==1){
+    else if(wordfound==1){
         for(int k = i; k<finalk; k++)
         foundidentifier[k-i]=arrayofinput[k];
 
-    //i=finalk+length;
+    i=finalk+strlen(foundword)-1;
+    printf(" i after word: %d ", i);
     }
-    else foundidentifier[0]=arrayofinput[i];
-    printf(" identifier: %s ", foundidentifier);
+    else{ foundidentifier[0]=arrayofinput[i];
+    //printf(" identifier: %s ", foundidentifier);
     i=finalk;
+    printf(" i after no word: %d ", i);}
+    printf(" identifier: %s ", foundidentifier);
     }
 
 
@@ -485,4 +490,3 @@ for(i=0;i<opt;i++){
 return 0;
 
 }
-
