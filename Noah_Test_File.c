@@ -465,6 +465,33 @@ for(i=0;i<opt;i++){
     printf("%d ", outputarray[i]);
 }
 
+
+
+for(i=0;i<opt;i++){
+if(outputarray[i]==-19)continue;
+if(outputarray[i]==2){
+    fprintf(outputfile, "%d ", outputarray[i]);
+    i++;
+    fprintf(outputfile, "%s ",identifierTable[outputarray[i]]);
+}
+else{
+    fprintf(outputfile,"%d ",outputarray[i]);
+}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
     deleteTrie(root);
 
     return 0;
