@@ -1,7 +1,12 @@
 # Homework 2: Lexical Analyzer
 
 ## Description
-//TODO
+This c program is designed to intake a file containing a program in the programming language PL0/ and identify the symbols, reserved words, variable names, and values contained within.
+These data are considered valid "lexemes".
+All whitespace is ignored in this program, as is syntax.
+After identifying all the lexemes in the file, the program outputs a file containing the raw input it analyzed, the lexeme table (containing the lexeme list and the token values), and the token list.
+
+
 
 ## Compilation Instructions
 To compile and run this program, first open a bash terminal and navigate to the directory containing vm.c and the input file.
@@ -9,9 +14,7 @@ To compile, "gcc vm.c"
 
 ## Usage
 [How to run the program, including any required arguments]
-//TODO 
-//bruv idk how this part got us points deducted last time such bs I specified everything ;-;
-//Immediately after compiling, use "./a.out input.txt" to run the program. NOTE: the program requires an input text file as an argument to function. NOTE: replace "input.txt" with the name of your .txt file
+
 
 ## Team Information (if applicable)
 - Noah Rossetti, no310072@ucf.edu
