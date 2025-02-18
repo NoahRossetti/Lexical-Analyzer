@@ -419,9 +419,9 @@ for(i=0;i<cap;i++){
           strcpy(foundword, buffer);
            // length=strlen(buffer);
             wordfound=1;
-            //break;
+            break;
           }
-          //if(wordfound=1) break;
+          if(wordfound==1) break;
         }
         //keeps track of where a reserved word starts/ where a identifier ends
         finalk=k;
@@ -429,12 +429,12 @@ for(i=0;i<cap;i++){
          printf(" %d ", i);
     }
 
-    //printf(" %d ", finalk);
+    printf("final %d ", finalk);
     if(finalk>i&&wordfound==0){
         for(int k = i; k<finalk; k++)
         foundidentifier[k-i]=arrayofinput[k];
 
-    //i=finalk;
+    i=finalk;
     }
     else if(finalk>i&&wordfound==1){
         for(int k = i; k<finalk; k++)
