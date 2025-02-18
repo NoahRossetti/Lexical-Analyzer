@@ -482,7 +482,7 @@ for(i=0;i<opt;i++){
     printf("%d ", outputarray[i]);
 }
 
-fprintf(outputfile, "\nLexeme Table\n");
+fprintf(outputfile, "\n\nLexeme Table:\n");
 
 for(i=0;i<opt;i++){
     if(outputarray[i]==-19)continue;
@@ -658,14 +658,14 @@ for(i=0;i<opt;i++){
 
     }else if(outputarray[i]==-77){
         if(outputarray[i+1]==3){
-            fprintf(outputfile,"integer\t Error: integer too large \tinteger");
+            fprintf(outputfile,"Error: integer too large ");
             i++;}
         else if(outputarray[i+1]==4){
-                fprintf(outputfile,"Error: invalid character \tsymbol");
+                fprintf(outputfile,"Error: invalid character ");
         i++;
         }
         else if(outputarray[i+1]==5){
-                fprintf(outputfile,"Error: ident too long \tidentifier");
+                fprintf(outputfile,"Error: ident too long ");
         i++;
         }
 
@@ -680,7 +680,10 @@ fprintf(outputfile, "\nOutput Table\n");
 
 for(i=0;i<opt;i++){
 if(outputarray[i]==-19)continue;
-else if(outputarray[i]==-77)continue;
+else if(outputarray[i]==-77){
+        i++;
+        continue;
+}
 if(outputarray[i]==2){
     fprintf(outputfile, "%d ", outputarray[i]);
     i++;
@@ -709,4 +712,5 @@ else{
     return 0;
 
 }
+
 
