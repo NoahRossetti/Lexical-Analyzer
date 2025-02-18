@@ -184,16 +184,26 @@ char arrayofinput[1000];
 char identifierTable[100][12];
 
 char *words[ ] = 
-{ "null", "begin", "call", "const", "do", "else", "end", "if",
-"odd", "procedure", "read", "then", "var", "while", "write"};
+	{ "null", "begin", "call", "const", "do", "else", "end", "if",
+	"odd", "procedure", "read", "then", "var", "while", "write"};
+	
+char* tokenWords[] = 
+	{"begin", "end", "if", "then", "while", "do", "call", "const", 
+	"var", "procedure", "write", "read", "else"};
 
 
-    for(int i = 0; i < 15; i++)
-    {
-        insertTrie(root, words[i]);
-        printf("\n%s\n", words[i]);
-    }
+	//loads reserved words
+	for(int i = 0; i < 15; i++)
+    	{
+        	insertTrie(root, words[i]);
+        	printf("\n%s\n", words[i]);
+    	}
 
+	//loads token values for reserved words
+	for(int i = 0; i < 13; i++)
+    	{
+        	editToken(root, tokenWords[i], i + 21);
+    	}
 //*******************************************************************************************************************************/
 
 FILE *inputfile = fopen("input.txt", "r");
