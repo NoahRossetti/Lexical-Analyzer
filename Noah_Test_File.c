@@ -382,8 +382,13 @@ for(i=0;i<cap;i++){
 
     //seperates words and identifiers
     else if (isalpha(arrayofinput[i])){
-
-         for(int k = i; arrayofinput[k]; k ++)
+        int wordfound =0;
+        int wordstart;
+        int finalk;
+        int length;
+        char foundword[12];
+        char foundidentifier[12];
+         for(int k = i; arrayofinput[k]; k++)
     {
         if(isalpha(arrayofinput[k])==0&&isdigit(arrayofinput[k])==0) break;
         int spaceLeft = 0;
@@ -409,13 +414,37 @@ for(i=0;i<cap;i++){
             strncat(buffer, window, l + 1);
             printf("\nbuffer is:%s\n", buffer);
          if(checkTrie(root, buffer)){
-            i+strlen(buffer);
+            //i+strlen(buffer);
           printf("reserved word found ");
-
-
+          strcpy(foundword, buffer);
+           // length=strlen(buffer);
+            wordfound=1;
+            //break;
           }
+          //if(wordfound=1) break;
         }
+        //keeps track of where a reserved word starts/ where a identifier ends
+        finalk=k;
+        printf(" %d ", k);
+         printf(" %d ", i);
     }
+
+    //printf(" %d ", finalk);
+    if(finalk>i&&wordfound==0){
+        for(int k = i; k<finalk; k++)
+        foundidentifier[k-i]=arrayofinput[k];
+
+    //i=finalk;
+    }
+    else if(finalk>i&&wordfound==1){
+        for(int k = i; k<finalk; k++)
+        foundidentifier[k-i]=arrayofinput[k];
+
+    //i=finalk+length;
+    }
+    else foundidentifier[0]=arrayofinput[i];
+    printf(" identifier: %s ", foundidentifier);
+    i=finalk;
     }
 
 
