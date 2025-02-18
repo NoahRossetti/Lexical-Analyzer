@@ -1,0 +1,29 @@
+Team Name: __________________________
+
+1. Name: Noah Rossetti
+   Contributions:
+
+  text sorter (overall main function)
+  - detects and ignores whitespace, comments
+  - detects symbols
+  - detects when something might be a keyword or variable and calls for a dictionary check
+  - detects when input too large
+  - produces error messages
+  - file input/output
+  - debugging
+  
+
+   Signature: _______________________  Date: 2/17/2025
+
+2. Name:  David Carmo
+   Contributions:
+
+    trie dictionary
+    - construction/destruction
+    - insertion function
+    - search function
+    - get token function
+    - rolling buffer to search for reserved words
+    - debugging
+    
+   Signature: ___________________  Date: 2/17/2025
