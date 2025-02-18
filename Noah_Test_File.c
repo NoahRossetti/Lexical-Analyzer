@@ -355,13 +355,24 @@ for(i=0;i<cap;i++){
             printf(" %d ", convertednumber);
         }
         //need to make this insert -777 iterate opt
-        else printf(" error: integer too long ");
+        else{
+            printf(" error: integer too long ");
+            outputarray[opt]=-77;
+            opt++;
+            outputarray[opt]=3;
+            i=j-1;
 
+
+        }
 
     }
 
     //need to make this insert number 3 then -777 iterate opt
-    else printf(" Invalid symbol ");
+    else {printf(" Invalid symbol ");
+    outputarray[opt]=-77;
+    opt++;
+    outputarray[opt]=4;
+    }
     }
 
     //seperates words and identifiers
@@ -377,7 +388,7 @@ for(i=0;i<cap;i++){
         if(isalpha(arrayofinput[k])==0&&isdigit(arrayofinput[k])==0) break;
         int spaceLeft = 0;
 
-        while(arrayofinput[k + spaceLeft] && spaceLeft < 11)
+        while(arrayofinput[k + spaceLeft] && spaceLeft < 23)
         {
             if(isalpha(arrayofinput[k + spaceLeft])==0&&isdigit(arrayofinput[k + spaceLeft])==0) break;
             spaceLeft++;
@@ -393,7 +404,7 @@ for(i=0;i<cap;i++){
 
         for(int l = 0; l < spaceLeft; l++)
         {
-            char buffer[12];
+            char buffer[22];
             buffer[0] = '\0';
             strncat(buffer, window, l + 1);
            // printf("\nbuffer is:%s\n", buffer);
@@ -417,7 +428,13 @@ for(i=0;i<cap;i++){
     }
 
     //printf("final %d ", finalk);
-    if(finalk>i&&wordfound==0){
+    if(finalk-i>11){
+        outputarray[opt]=-77;
+        opt++;
+        outputarray[opt]=5;
+        i=finalk;
+    }
+    else if(finalk>i&&wordfound==0){
         for(int k = i; k<finalk; k++)
         foundidentifier[k-i]=arrayofinput[k];
          outputarray[opt]=2;
@@ -468,7 +485,200 @@ for(i=0;i<opt;i++){
 
 
 for(i=0;i<opt;i++){
+    if(outputarray[i]==-19)continue;
+   // else if(outputarray[i]==1){
+
+
+
+    //}
+
+    else if(outputarray[i]==2){
+    fprintf(outputfile, "%d ", outputarray[i]);
+    i++;
+    fprintf(outputfile, "\t%s ",identifierTable[outputarray[i]]);
+    }
+
+
+   else if(outputarray[i]==3){
+    fprintf(outputfile, "%d ", outputarray[i]);
+    i++;
+    fprintf(outputfile, "\t%d ",outputarray[i]);
+}
+    else if(outputarray[i]==4){
+    fprintf(outputfile, "4 \t+");
+
+
+    }
+
+    else if(outputarray[i]==5){
+    fprintf(outputfile, "5 \t-");
+
+
+    }
+    else if(outputarray[i]==6){
+    fprintf(outputfile, "6 \t*");
+
+
+    }
+    else if(outputarray[i]==7){
+    fprintf(outputfile, "7 \t\\");
+
+
+    }
+    else if(outputarray[i]==8){
+    fprintf(outputfile, "8 \tfi");
+
+
+    }
+    else if(outputarray[i]==9){
+    fprintf(outputfile, "9 \t=");
+
+
+    }
+    else if(outputarray[i]==10){
+    fprintf(outputfile, "10 \t!=");
+
+
+    }
+    else if(outputarray[i]==11){
+    fprintf(outputfile, "11 \t<");
+
+
+    }
+    else if(outputarray[i]==12){
+    fprintf(outputfile, "12 \t<=");
+
+
+    }
+    else if(outputarray[i]==13){
+    fprintf(outputfile, "13 \t>");
+
+
+    }
+    else if(outputarray[i]==14){
+    fprintf(outputfile, "14 \t=>");
+
+
+    }
+    else if(outputarray[i]==15){
+    fprintf(outputfile, "15 \t(");
+
+
+    }
+    else if(outputarray[i]==16){
+    fprintf(outputfile, "16 \t)");
+
+
+    }
+    else if(outputarray[i]==17){
+    fprintf(outputfile, "17 \t,");
+
+
+    }
+    else if(outputarray[i]==18){
+    fprintf(outputfile, "18 \t;");
+
+
+    }
+    else if(outputarray[i]==19){
+    fprintf(outputfile, "19 \t.");
+
+
+    }
+    else if(outputarray[i]==20){
+    fprintf(outputfile, "20 \t:=");
+
+
+    }
+    else if(outputarray[i]==21){
+    fprintf(outputfile, "21 \tbegin");
+
+
+    }
+    else if(outputarray[i]==22){
+    fprintf(outputfile, "22 \tend");
+
+
+    }
+    else if(outputarray[i]==23){
+    fprintf(outputfile, "23 \tif");
+
+
+    }
+    else if(outputarray[i]==24){
+    fprintf(outputfile, "24 \then");
+
+
+    }
+    else if(outputarray[i]==25){
+    fprintf(outputfile, "25 \twhile");
+
+
+    }
+    else if(outputarray[i]==26){
+    fprintf(outputfile, "26 \tdo");
+
+
+    }
+    else if(outputarray[i]==27){
+    fprintf(outputfile, "27 \tcall");
+
+
+    }
+    else if(outputarray[i]==28){
+    fprintf(outputfile, "28 \tconst");
+
+
+    }
+    else if(outputarray[i]==29){
+    fprintf(outputfile, "29 \tvar");
+
+
+    }
+    else if(outputarray[i]==30){
+    fprintf(outputfile, "30 \t+");
+
+
+    }
+    else if(outputarray[i]==31){
+    fprintf(outputfile, "31 \twrite");
+
+
+    }
+    else if(outputarray[i]==32){
+    fprintf(outputfile, "32 \tread");
+
+
+    }
+    else if(outputarray[i]==33){
+    fprintf(outputfile, "33 \telse");
+
+
+    }else if(outputarray[i]==-77){
+        if(outputarray[i+1]==3){
+            fprintf(outputfile,"integer\t Error: integer too large ");
+            i++;}
+        else if(outputarray[i+1]==4){
+                fprintf(outputfile,"symbol\t Error: invalid character");
+        i++;
+        }
+        else if(outputarray[i+1]==5){
+                fprintf(outputfile,"identifier\t Error: ident too long");
+        i++;
+        }
+
+    }
+
+
+
+    fprintf(outputfile, "\n");
+}
+
+
+
+for(i=0;i<opt;i++){
 if(outputarray[i]==-19)continue;
+else if(outputarray[i]==-77)continue;
 if(outputarray[i]==2){
     fprintf(outputfile, "%d ", outputarray[i]);
     i++;
