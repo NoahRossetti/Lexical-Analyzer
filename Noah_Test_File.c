@@ -26,7 +26,7 @@ whilesym, dosym, callsym, constsym, varsym, procsym, writesym,
 readsym , elsesym} token_type;
 
 
-//numerical value assigned to each token
+//int value assigned to each token
 /*skipsym = 1, identsym = 2, numbersym = 3, plussym = 4, minussym = 5,
 multsym = 6, slashsym = 7, fisym = 8, eqlsym = 9, neqsym = 10, lessym = 11, leqsym =
 12, gtrsym = 13, geqsym = 14, lparentsym = 15, rparentsym = 16, commasym = 17,
@@ -36,21 +36,6 @@ callsym = 27, constsym = 28, varsym = 29, procsym = 30, writesym = 31,
 readsym = 32, elsesym = 33.*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 typedef struct trieNode trieNode;
 
 struct trieNode
@@ -58,12 +43,7 @@ struct trieNode
         int token;
         int isWord;
         trieNode* child[37];
-        // values for trie structure are as follows:
         // adresses 0-25: alphabet
-        // addresses 26-36: decimal values 0-9
-        // address 37: '_' underscore
-
-        //TODO: if ya find another character that should be represented in the trie lmk pls
 
 };
 
@@ -75,12 +55,11 @@ trieNode* createNode()
     return node;
 }
 
-
+//Warning! Following functions require null terminated input!
 void insertTrie(trieNode* root, char* bufferArr)
 {
         trieNode* navigator = root;
 
-        //TODO: assuming null terminated by strcpy or something, might need to put a sentinel
         for(int i = 0; bufferArr[i]; i++)
         {
                 if(navigator->child[bufferArr[i] - 'a'])
@@ -107,30 +86,64 @@ void insertTrie(trieNode* root, char* bufferArr)
         }
 }
 
-
-
+//searches dictionary and returns true 1 or false 0 if the search is successful
 int checkTrie(trieNode* root, char* bufferArr)
 {
 	trieNode* navigator = root;
-	//TODO: again assuming its null terminated
+
 	for(int i = 0; bufferArr[i]; i++)
 	{
 		if(navigator->child[bufferArr[i] - 'a']) //checks if next node exists in the trie
 		{
 			navigator = navigator->child[bufferArr[i] - 'a'];
-			if( navigator->isWord == true && !bufferArr[i + 1])
+			if( navigator->isWord == 1 && !bufferArr[i + 1])
 			{
 				return 1;
             }
 		}
-		else //if next node does not exist in the trie
+		else //if next node does not exist in the trie, search ends
 		{
-			//TODO remove debug print statement later
-			//printf(" %s ", bufferArr);
-			//printf("\n REMOVE LATER word not found in trie \n");
 			return 0;
 		}
     }
+}
+
+//loads token values for reserved words into the trie
+void editToken(trieNode* root, char* bufferArr, int token)
+{
+    trieNode* navigator = root;
+	for(int i = 0; bufferArr[i]; i++)
+	{
+		if(navigator->child[bufferArr[i] - 'a']) //checks if next node exists in the trie
+		{
+			navigator = navigator->child[bufferArr[i] - 'a'];
+			if( navigator->isWord == 1 && !bufferArr[i + 1])
+			{
+				navigator->token = token;
+            		}
+		}
+    	}
+}
+
+//retrieves token value upon successful dictionary search
+int getToken(trieNode* root, char* bufferArr)
+{
+    trieNode* navigator = root;
+	for(int i = 0; bufferArr[i]; i++)
+	{
+		if(navigator->child[bufferArr[i] - 'a']) //checks if next node exists in the trie
+		{
+			navigator = navigator->child[bufferArr[i] - 'a'];
+			if( navigator->isWord == 1 && !bufferArr[i + 1])
+			{
+				return navigator->token;
+            		}
+		}
+		else //if next node does not exist in the trie,
+		{
+            		return -99;
+		}
+    	}
 }
 
 
@@ -152,16 +165,6 @@ void deleteTrie(trieNode* root)
     free(root);
 }
 
-
-
-
-
-
-
-
-
-
-
 int main(int argc, char *argv[]){
 trieNode* root = createNode();
 
@@ -181,43 +184,24 @@ int outputarray[1000];
 char arrayofinput[1000];
 char identifierTable[100][12];
 
-char *words[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
+char *words[ ] =
+{ "null", "begin", "call", "const", "do", "else", "end", "if",
 "odd", "procedure", "read", "then", "var", "while", "write"};
 
-
-
-
-
-
-
-
-     if(root != NULL)
-    {
-        printf("\nroot exists!\n");
-    }
-
-
+char* tokenWords[] =
+	{"begin", "end", "if", "then", "while", "do", "call", "const",
+	"var", "procedure", "write", "read", "else"};
     for(int i = 0; i < 15; i++)
     {
         insertTrie(root, words[i]);
         printf("\n%s\n", words[i]);
     }
+    for(int i = 0; i < 13; i++)
+    	{
+        	editToken(root, tokenWords[i], i + 21);
+    	}
 
-
-    while(strcmp(inputArr, "quit"))
-    {
-        scanf("%s", inputArr);
-
-
-        printf("\nis the string ''%s'' present in the trie: %d\n", inputArr, checkTrie(root, inputArr));
-
-    }
-
-
-
-
-
-
+//*******************************************************************************************************************************/
 
 FILE *inputfile = fopen("input.txt", "r");
 
@@ -235,7 +219,6 @@ if(outputfile==NULL){
 
 	return 0;
 }
-
 
 
 // removes invisble characters, comments and whitespaces from text
@@ -420,6 +403,7 @@ for(i=0;i<cap;i++){
           strcpy(foundword, buffer);
            // length=strlen(buffer);
            printf(" %s ", foundword);
+           printf(" token: %d ",getToken(root, foundword));
             wordfound=1;
             break;
           }
@@ -449,8 +433,9 @@ for(i=0;i<cap;i++){
     else if(wordfound==1){
         for(int k = i; k<finalk; k++)
         foundidentifier[k-i]=arrayofinput[k];
-
+        outputarray[opt]= getToken(root, foundword);
     i=finalk+strlen(foundword)-1;
+
    // printf(" i after word: %d ", i);
     }
     else{ foundidentifier[0]=arrayofinput[i];
@@ -469,11 +454,6 @@ for(i=0;i<cap;i++){
     }
 
 
-
-
-
-
-
 printf("|");
 opt++;
 }
@@ -485,24 +465,8 @@ for(i=0;i<opt;i++){
     printf("%d ", outputarray[i]);
 }
 
+    deleteTrie(root);
 
-
-
-
-
-
-
-
-
-
-   deleteTrie(root);
-
-
-
-
-
-
-
-return 0;
+    return 0;
 
 }
