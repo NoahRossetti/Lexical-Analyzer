@@ -9,12 +9,12 @@ After identifying all the lexemes in the file, the program outputs a file contai
 
 
 ## Compilation Instructions
-To compile and run this program, first open a bash terminal and navigate to the directory containing vm.c and the input file.
-To compile, "gcc vm.c"
+To compile and run this program, first open a bash terminal and navigate to the directory containing lex.c and the input file.
+To compile, "gcc lex.c"
 
 ## Usage
 [How to run the program, including any required arguments]
-
+Immediately after compiling, use "./a.out" to run the program.
 
 ## Team Information (if applicable)
 - Noah Rossetti, no310072@ucf.edu
