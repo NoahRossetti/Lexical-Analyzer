@@ -69,7 +69,7 @@ void insertTrie(trieNode* root, char* bufferArr)
                         if(!(bufferArr[i + 1]))//if the next letter is the terminator, word flag is deployed
                         {
                                 navigator->isWord = 1;
-                                printf("\nstring: %s inserted!\n", bufferArr);
+
                         }
                 }
                 else
@@ -194,7 +194,7 @@ char* tokenWords[] =
     for(int i = 0; i < 15; i++)
     {
         insertTrie(root, words[i]);
-        printf("\n%s\n", words[i]);
+
     }
     for(int i = 0; i < 13; i++)
     	{
@@ -263,7 +263,7 @@ if(outputfile==NULL){
 
         if(commentflag==0) {
             arrayofinput[i]=test;
-            printf("%c", arrayofinput[i]);
+
             i++;
         }
     cap=i;
@@ -284,23 +284,23 @@ for(i=0;i<cap;i++){
     if(arrayofinput[i]<'A'&&arrayofinput[i]>20){
 
 
-    if(arrayofinput[i]=='+'){ printf("%d", plussym); outputarray[opt]=plussym;}
+    if(arrayofinput[i]=='+'){  outputarray[opt]=plussym;}
 
-    else if(arrayofinput[i]=='-') { printf("%d", minussym); outputarray[opt]=minussym;}
+    else if(arrayofinput[i]=='-') {  outputarray[opt]=minussym;}
 
-    else if(arrayofinput[i]=='*') {printf("%d", multsym); outputarray[opt]=multsym;}
+    else if(arrayofinput[i]=='*') { outputarray[opt]=multsym;}
 
-    else if(arrayofinput[i]==','){ printf("%d", commasym); outputarray[opt]=commasym;}
+    else if(arrayofinput[i]==','){  outputarray[opt]=commasym;}
 
-    else if(arrayofinput[i]=='='){ printf("%d", eqsym); outputarray[opt]=eqsym;}
+    else if(arrayofinput[i]=='='){  outputarray[opt]=eqsym;}
 
-    else if(arrayofinput[i]=='.'){ printf("%d", periodsym); outputarray[opt]=periodsym;}
+    else if(arrayofinput[i]=='.'){  outputarray[opt]=periodsym;}
 
-    else if(arrayofinput[i]=='<'){printf("%d", lessym); outputarray[opt]=lessym;}
+    else if(arrayofinput[i]=='<'){ outputarray[opt]=lessym;}
 
-    else if(arrayofinput[i]=='>'){ printf("%d", gtrsym); outputarray[opt]=gtrsym;}
+    else if(arrayofinput[i]=='>'){  outputarray[opt]=gtrsym;}
 
-    else if(arrayofinput[i]==';'){ printf("%d", semicolonsym); outputarray[opt]=semicolonsym;}
+    else if(arrayofinput[i]==';'){  outputarray[opt]=semicolonsym;}
 
     //more to do
     else if(arrayofinput[i]==':'){
@@ -309,20 +309,20 @@ for(i=0;i<cap;i++){
         if(arrayofinput[i+1]=='='){
             i++;
             opt++;
-         printf("%d", becomessym);
+
          outputarray[opt]=becomessym;
          }
 
-        else{ printf("%d", fisym); outputarray[opt]=fisym;}
+        else{  outputarray[opt]=fisym;}
 
     }
 
 
 
 
-    else if(arrayofinput[i]=='('){ printf("%d", lparentsym); outputarray[opt]=lparentsym;}
+    else if(arrayofinput[i]=='('){  outputarray[opt]=lparentsym;}
 
-    else if(arrayofinput[i]==')'){ printf("%d", rparentsym); outputarray[opt]=rparentsym;}
+    else if(arrayofinput[i]==')'){  outputarray[opt]=rparentsym;}
 
 
     // This will identify and tokenize integers
@@ -339,9 +339,9 @@ for(i=0;i<cap;i++){
             char integerconverter[6];
             int convertednumber;
             int arrayfiller=0;
-                printf(" %d ", numbersym);
+
                 outputarray[opt]=numbersym;
-            for(int k = i; k<j; k++){ printf("%c", arrayofinput[k]);
+            for(int k = i; k<j; k++){
                 integerconverter[arrayfiller]=arrayofinput[k];
                 arrayfiller++;
 
@@ -352,11 +352,11 @@ for(i=0;i<cap;i++){
             opt++;
             i=j-1;
             outputarray[opt]=convertednumber;
-            printf(" %d ", convertednumber);
+
         }
         //need to make this insert -777 iterate opt
         else{
-            printf(" error: integer too long ");
+
             outputarray[opt]=-77;
             opt++;
             outputarray[opt]=3;
@@ -368,7 +368,7 @@ for(i=0;i<cap;i++){
     }
 
     //need to make this insert number 3 then -777 iterate opt
-    else {printf(" Invalid symbol ");
+    else {
     outputarray[opt]=-77;
     opt++;
     outputarray[opt]=4;
@@ -400,21 +400,20 @@ for(i=0;i<cap;i++){
             window[l] = arrayofinput[k + l];
         }
         window[spaceLeft] = '\0';
-        //printf("\nwindow is:%s\n", window);
+
 
         for(int l = 0; l < spaceLeft; l++)
         {
             char buffer[22];
             buffer[0] = '\0';
             strncat(buffer, window, l + 1);
-           // printf("\nbuffer is:%s\n", buffer);
+
          if(checkTrie(root, buffer)){
             //i+strlen(buffer);
-          printf(" reserved word found ");
+
           strcpy(foundword, buffer);
            // length=strlen(buffer);
-           printf(" %s ", foundword);
-           printf(" token: %d ",getToken(root, foundword));
+
             wordfound=1;
             break;
           }
@@ -422,12 +421,11 @@ for(i=0;i<cap;i++){
         }
         //keeps track of where a reserved word starts/ where a identifier ends
         finalk=k;
-        //printf(" %d ", k);
-        // printf(" %d ", i);
+
          if(wordfound==1) break;
     }
 
-    //printf("final %d ", finalk);
+
     if(finalk-i>11){
         outputarray[opt]=-77;
         opt++;
@@ -441,7 +439,7 @@ for(i=0;i<cap;i++){
     opt++;
     outputarray[opt]=identtracker;
     strcpy(identifierTable[identtracker],foundidentifier);
-    printf(" identifier from table %s ", identifierTable[identtracker]);
+
     identtracker++;
 
     i=finalk;
@@ -456,12 +454,12 @@ for(i=0;i<cap;i++){
    // printf(" i after word: %d ", i);
     }
     else{ foundidentifier[0]=arrayofinput[i];
-    printf(" identifier: %s ", foundidentifier);
+
     outputarray[opt]=2;
     opt++;
     outputarray[opt]=identtracker;
     strcpy(identifierTable[identtracker],foundidentifier);
-    printf(" identifier from table %s ", identifierTable[identtracker]);
+
     identtracker++;
 
     i=finalk;
@@ -471,15 +469,15 @@ for(i=0;i<cap;i++){
     }
 
 
-printf("|");
+
 opt++;
 }
 
-printf(" \n ");
+
 for(i=0;i<opt;i++){
 
 
-    printf("%d ", outputarray[i]);
+
 }
 
 fprintf(outputfile, "\n\nLexeme Table:\n");
@@ -712,5 +710,4 @@ else{
     return 0;
 
 }
-
 
