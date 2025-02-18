@@ -38,12 +38,17 @@ readsym = 32, elsesym = 33.*/
 
 typedef struct trieNode trieNode;
 
-struct trieNode
+struct trieNode 
 {
         int token;
         int isWord;
-        trieNode* child[26];
+        trieNode* child[37];
+        // values for trie structure are as follows: 
         // adresses 0-25: alphabet
+        // addresses 26-36: decimal values 0-9
+        // address 37: '_' underscore
+
+        //TODO: if ya find another character that should be represented in the trie lmk pls
 
 };
 
@@ -55,11 +60,12 @@ trieNode* createNode()
     return node;
 }
 
-//Warning: requires input be null terminated
+
 void insertTrie(trieNode* root, char* bufferArr)
 {
         trieNode* navigator = root;
 
+        //TODO: assuming null terminated by strcpy or something, might need to put a sentinel
         for(int i = 0; bufferArr[i]; i++)
         {
                 if(navigator->child[bufferArr[i] - 'a'])
@@ -81,16 +87,17 @@ void insertTrie(trieNode* root, char* bufferArr)
                         {
                                 navigator->isWord = 1;
                         }
-
+        
                 }
         }
 }
 
 
-//searches the dictionary and returns true 1 or false 0 depending on a word being found
+
 int checkTrie(trieNode* root, char* bufferArr)
-{
+{	
 	trieNode* navigator = root;
+	//TODO: again assuming its null terminated
 	for(int i = 0; bufferArr[i]; i++)
 	{
 		if(navigator->child[bufferArr[i] - 'a']) //checks if next node exists in the trie
@@ -101,9 +108,56 @@ int checkTrie(trieNode* root, char* bufferArr)
 				return 1;
             }
 		}
-		else //if next node does not exist in the trie, search ends
+		else //if next node does not exist in the trie 
 		{
+			//TODO remove debug print statement later
+			printf("\n REMOVE LATER word not found in trie \n");
 			return 0;
+		}
+    }
+}
+
+void editToken(trieNode* root, char* bufferArr, int token)
+{
+    trieNode* navigator = root;
+	//TODO: again assuming its null terminated
+	for(int i = 0; bufferArr[i]; i++)
+	{
+		if(navigator->child[bufferArr[i] - 'a']) //checks if next node exists in the trie
+		{
+			navigator = navigator->child[bufferArr[i] - 'a'];
+			if( navigator->isWord == 1 && !bufferArr[i + 1])
+			{
+				navigator->token = token;
+            }
+		}
+		else //if next node does not exist in the trie 
+		{
+			//TODO remove debug print statement later
+			printf("\n REMOVE LATER word not found in trie \n");
+		}
+    }
+}
+
+int getToken(trieNode* root, char* bufferArr)
+{
+    trieNode* navigator = root;
+	//TODO: again assuming its null terminated
+	for(int i = 0; bufferArr[i]; i++)
+	{
+		if(navigator->child[bufferArr[i] - 'a']) //checks if next node exists in the trie
+		{
+			navigator = navigator->child[bufferArr[i] - 'a'];
+			if( navigator->isWord == 1 && !bufferArr[i + 1])
+			{
+				return navigator->token;
+            }
+		}
+		else //if next node does not exist in the trie 
+		{
+			//TODO remove debug print statement later
+			printf("\n REMOVE LATER word not found in trie \n");
+            return -99;
 		}
     }
 }
@@ -125,9 +179,8 @@ void deleteTrie(trieNode* root)
     }
 
     free(root);
+    return;
 }
-
-
 
 int main(int argc, char *argv[]){
 trieNode* root = createNode();
