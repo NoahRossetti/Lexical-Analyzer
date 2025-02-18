@@ -185,7 +185,7 @@ void deleteTrie(trieNode* root)
     }
 
     free(root);
-    return;
+
 }
 
 
