@@ -482,7 +482,7 @@ for(i=0;i<opt;i++){
     printf("%d ", outputarray[i]);
 }
 
-
+fprintf(outputfile, "\nLexeme Table\n");
 
 for(i=0;i<opt;i++){
     if(outputarray[i]==-19)continue;
@@ -493,177 +493,179 @@ for(i=0;i<opt;i++){
     //}
 
     else if(outputarray[i]==2){
-    fprintf(outputfile, "%d ", outputarray[i]);
+
+    fprintf(outputfile, "%s \t",identifierTable[outputarray[i]]);
     i++;
-    fprintf(outputfile, "\t%s ",identifierTable[outputarray[i]]);
+    fprintf(outputfile, "%d ", outputarray[i]);
     }
 
 
    else if(outputarray[i]==3){
-    fprintf(outputfile, "%d ", outputarray[i]);
+
+    fprintf(outputfile, "%d \t",outputarray[i]);
     i++;
-    fprintf(outputfile, "\t%d ",outputarray[i]);
+    fprintf(outputfile, "%d ", outputarray[i]);
 }
     else if(outputarray[i]==4){
-    fprintf(outputfile, "4 \t+");
+    fprintf(outputfile, "+ \t4");
 
 
     }
 
     else if(outputarray[i]==5){
-    fprintf(outputfile, "5 \t-");
+    fprintf(outputfile, "- \t5");
 
 
     }
     else if(outputarray[i]==6){
-    fprintf(outputfile, "6 \t*");
+    fprintf(outputfile, "* \t6");
 
 
     }
     else if(outputarray[i]==7){
-    fprintf(outputfile, "7 \t\\");
+    fprintf(outputfile, "\\ \t7");
 
 
     }
     else if(outputarray[i]==8){
-    fprintf(outputfile, "8 \tfi");
+    fprintf(outputfile, "fi \t8");
 
 
     }
     else if(outputarray[i]==9){
-    fprintf(outputfile, "9 \t=");
+    fprintf(outputfile, "= \t9");
 
 
     }
     else if(outputarray[i]==10){
-    fprintf(outputfile, "10 \t!=");
+    fprintf(outputfile, "!= \t!10");
 
 
     }
     else if(outputarray[i]==11){
-    fprintf(outputfile, "11 \t<");
+    fprintf(outputfile, "< \t11");
 
 
     }
     else if(outputarray[i]==12){
-    fprintf(outputfile, "12 \t<=");
+    fprintf(outputfile, "<= \t12");
 
 
     }
     else if(outputarray[i]==13){
-    fprintf(outputfile, "13 \t>");
+    fprintf(outputfile, "> \t13");
 
 
     }
     else if(outputarray[i]==14){
-    fprintf(outputfile, "14 \t=>");
+    fprintf(outputfile, "=> \t14");
 
 
     }
     else if(outputarray[i]==15){
-    fprintf(outputfile, "15 \t(");
+    fprintf(outputfile, "( \t15");
 
 
     }
     else if(outputarray[i]==16){
-    fprintf(outputfile, "16 \t)");
+    fprintf(outputfile, "( \t16");
 
 
     }
     else if(outputarray[i]==17){
-    fprintf(outputfile, "17 \t,");
+    fprintf(outputfile, ", \t17");
 
 
     }
     else if(outputarray[i]==18){
-    fprintf(outputfile, "18 \t;");
+    fprintf(outputfile, "; \t18");
 
 
     }
     else if(outputarray[i]==19){
-    fprintf(outputfile, "19 \t.");
+    fprintf(outputfile, ". \t19");
 
 
     }
     else if(outputarray[i]==20){
-    fprintf(outputfile, "20 \t:=");
+    fprintf(outputfile, ":= \t20");
 
 
     }
     else if(outputarray[i]==21){
-    fprintf(outputfile, "21 \tbegin");
+    fprintf(outputfile, "begin \t21");
 
 
     }
     else if(outputarray[i]==22){
-    fprintf(outputfile, "22 \tend");
+    fprintf(outputfile, "end \t22");
 
 
     }
     else if(outputarray[i]==23){
-    fprintf(outputfile, "23 \tif");
+    fprintf(outputfile, "if \t23");
 
 
     }
     else if(outputarray[i]==24){
-    fprintf(outputfile, "24 \then");
+    fprintf(outputfile, "then \t24");
 
 
     }
     else if(outputarray[i]==25){
-    fprintf(outputfile, "25 \twhile");
+    fprintf(outputfile, "while \t25");
 
 
     }
     else if(outputarray[i]==26){
-    fprintf(outputfile, "26 \tdo");
+    fprintf(outputfile, "do \t26");
 
 
     }
     else if(outputarray[i]==27){
-    fprintf(outputfile, "27 \tcall");
+    fprintf(outputfile, "call \t27");
 
 
     }
     else if(outputarray[i]==28){
-    fprintf(outputfile, "28 \tconst");
+    fprintf(outputfile, "const \t28");
 
 
     }
     else if(outputarray[i]==29){
-    fprintf(outputfile, "29 \tvar");
+    fprintf(outputfile, "var \t29");
 
 
     }
     else if(outputarray[i]==30){
-    fprintf(outputfile, "30 \t+");
+    fprintf(outputfile, "+ \t30");
 
 
     }
     else if(outputarray[i]==31){
-    fprintf(outputfile, "31 \twrite");
+    fprintf(outputfile, "write \t31");
 
 
     }
     else if(outputarray[i]==32){
-    fprintf(outputfile, "32 \tread");
+    fprintf(outputfile, "read \t32");
 
 
     }
     else if(outputarray[i]==33){
-    fprintf(outputfile, "33 \telse");
+    fprintf(outputfile, "else \t33");
 
 
     }else if(outputarray[i]==-77){
         if(outputarray[i+1]==3){
-            fprintf(outputfile,"integer\t Error: integer too large ");
+            fprintf(outputfile,"integer\t Error: integer too large \tinteger");
             i++;}
         else if(outputarray[i+1]==4){
-                fprintf(outputfile,"symbol\t Error: invalid character");
+                fprintf(outputfile,"Error: invalid character \tsymbol");
         i++;
         }
         else if(outputarray[i+1]==5){
-                fprintf(outputfile,"identifier\t Error: ident too long");
+                fprintf(outputfile,"Error: ident too long \tidentifier");
         i++;
         }
 
@@ -674,7 +676,7 @@ for(i=0;i<opt;i++){
     fprintf(outputfile, "\n");
 }
 
-
+fprintf(outputfile, "\nOutput Table\n");
 
 for(i=0;i<opt;i++){
 if(outputarray[i]==-19)continue;
@@ -707,3 +709,4 @@ else{
     return 0;
 
 }
+
