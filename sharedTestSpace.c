@@ -26,7 +26,7 @@ whilesym, dosym, callsym, constsym, varsym, procsym, writesym,
 readsym , elsesym} token_type;
 
 
-//numerical value assigned to each token
+//int value assigned to each token
 /*skipsym = 1, identsym = 2, numbersym = 3, plussym = 4, minussym = 5,
 multsym = 6, slashsym = 7, fisym = 8, eqlsym = 9, neqsym = 10, lessym = 11, leqsym =
 12, gtrsym = 13, geqsym = 14, lparentsym = 15, rparentsym = 16, commasym = 17,
@@ -36,34 +36,14 @@ callsym = 27, constsym = 28, varsym = 29, procsym = 30, writesym = 31,
 readsym = 32, elsesym = 33.*/
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 typedef struct trieNode trieNode;
 
 struct trieNode
 {
         int token;
         int isWord;
-        trieNode* child[37];
-        // values for trie structure are as follows:
+        trieNode* child[26];
         // adresses 0-25: alphabet
-        // addresses 26-36: decimal values 0-9
-        // address 37: '_' underscore
-
-        //TODO: if ya find another character that should be represented in the trie lmk pls
 
 };
 
@@ -75,12 +55,11 @@ trieNode* createNode()
     return node;
 }
 
-
+//Warning: requires input be null terminated
 void insertTrie(trieNode* root, char* bufferArr)
 {
         trieNode* navigator = root;
 
-        //TODO: assuming null terminated by strcpy or something, might need to put a sentinel
         for(int i = 0; bufferArr[i]; i++)
         {
                 if(navigator->child[bufferArr[i] - 'a'])
@@ -108,26 +87,22 @@ void insertTrie(trieNode* root, char* bufferArr)
 }
 
 
-
+//searches the dictionary and returns true 1 or false 0 depending on a word being found
 int checkTrie(trieNode* root, char* bufferArr)
 {
 	trieNode* navigator = root;
-	//TODO: again assuming its null terminated
 	for(int i = 0; bufferArr[i]; i++)
 	{
 		if(navigator->child[bufferArr[i] - 'a']) //checks if next node exists in the trie
 		{
 			navigator = navigator->child[bufferArr[i] - 'a'];
-			if( navigator->isWord == true && !bufferArr[i + 1])
+			if( navigator->isWord == 1 && !bufferArr[i + 1])
 			{
 				return 1;
             }
 		}
-		else //if next node does not exist in the trie
+		else //if next node does not exist in the trie, search ends
 		{
-			//TODO remove debug print statement later
-			printf(" %s ", bufferArr);
-			printf("\n REMOVE LATER word not found in trie \n");
 			return 0;
 		}
     }
@@ -154,43 +129,10 @@ void deleteTrie(trieNode* root)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 int main(int argc, char *argv[]){
 trieNode* root = createNode();
 
-//int length_tracker;
-char window[12];
+// int length_tracker;
 char inputArr[50] = {"start"};
 int j;
 int cap;
@@ -198,30 +140,16 @@ int i=0;
 int commentflag=0;
 char temp;
 char test;
-//output array position tracker
+char window[12];
+// output array position tracker
 int opt;
-char output[100];
-
 int outputarray[1000];
 char arrayofinput[1000];
 char identifierTable[100][12];
 
-char *words[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
+char *words[ ] = 
+{ "null", "begin", "call", "const", "do", "else", "end", "if",
 "odd", "procedure", "read", "then", "var", "while", "write"};
-
-
-
-//for (int i = 0; i < argc; i++) {
-  //      printf("%s\n", argv[i]);
-    //}
-
-
-
-
-     if(root != NULL)
-    {
-        printf("\nroot exists!\n");
-    }
 
 
     for(int i = 0; i < 15; i++)
@@ -230,50 +158,10 @@ char *words[ ] = { "null", "begin", "call", "const", "do", "else", "end", "if",
         printf("\n%s\n", words[i]);
     }
 
+//*******************************************************************************************************************************/
 
-    while(strcmp(inputArr, "quit"))
-    {
-        scanf("%s", inputArr);
+FILE *inputfile = fopen("input.txt", "r");
 
-
-        printf("\nis the string ''%s'' present in the trie: %d\n", inputArr, checkTrie(root, inputArr));
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-FILE *inputfile = fopen("input", "r");
 FILE *outputfile = fopen("output", "w");
 
   // Lets us know if there is a problem retrieving file ( will remove later )
@@ -289,12 +177,6 @@ if(outputfile==NULL){
 	return 0;
 }
 
-//while ((test = fgetc(inputfile)) != EOF) {
-
- //fprintf(outputfile,"%c",test);
-
-
-//}
 
 // removes invisble characters, comments and whitespaces from text
  while ((test = fgetc(inputfile)) != EOF) {
@@ -349,15 +231,12 @@ if(outputfile==NULL){
 
 
 
-for(i=0;i<cap;i++){
+for(i=0;i<cap;i++)
+{
+    printf(" i top of loop: %d ", i);
 
-//might need to add more symbols
-
-
-
-
-    if(arrayofinput[i]<'A'&&arrayofinput[i]>20){
-
+    if(arrayofinput[i]<'A'&&arrayofinput[i]>20)
+    {
 
     if(arrayofinput[i]=='+'){ printf("%d", plussym); outputarray[opt]=plussym;}
 
@@ -377,19 +256,16 @@ for(i=0;i<cap;i++){
 
     else if(arrayofinput[i]==';'){ printf("%d", semicolonsym); outputarray[opt]=semicolonsym;}
 
-    //more to do
-    else if(arrayofinput[i]==':'){
-        printf("made it here");
-
+    else if(arrayofinput[i]==':')
+    {
         if(arrayofinput[i+1]=='='){
             i++;
             opt++;
-         printf(" becomesym %d", becomessym);
+         printf("%d", becomessym);
          outputarray[opt]=becomessym;
          }
 
-        else{ printf(" bb %d", fisym); outputarray[opt]=fisym;}
-
+        else{ printf("%d", fisym); outputarray[opt]=fisym;}
     }
 
 
@@ -401,26 +277,28 @@ for(i=0;i<cap;i++){
 
 
     // This will identify and tokenize integers
-  else if(arrayofinput[i]=='0'||arrayofinput[i]=='1'||arrayofinput[i]=='2'||arrayofinput[i]=='3'||arrayofinput[i]=='4'||arrayofinput[i]=='5'||arrayofinput[i]=='6'||arrayofinput[i]=='7'||arrayofinput[i]=='8'||arrayofinput[i]=='9'){
+    else if(arrayofinput[i]=='0'||arrayofinput[i]=='1'||arrayofinput[i]=='2'||arrayofinput[i]=='3'||arrayofinput[i]=='4'||arrayofinput[i]=='5'||arrayofinput[i]=='6'||arrayofinput[i]=='7'||arrayofinput[i]=='8'||arrayofinput[i]=='9'){
 
         //this finds the length of the integer to make sure it is valid
         j = i;
-        while(arrayofinput[j]>'/'&&arrayofinput[j]<='9'){
+        while(arrayofinput[j]>'/'&&arrayofinput[j]<='9')
+        {
             j++;
         }
 
 
-        if(j<i+5){
+        if(j<i+5)
+        {
             char integerconverter[6];
             int convertednumber;
             int arrayfiller=0;
                 printf(" %d ", numbersym);
                 outputarray[opt]=numbersym;
-            for(int k = i; k<j; k++){ printf("%c", arrayofinput[k]);
+            for(int k = i; k<j; k++)
+            {   
+                printf("%c", arrayofinput[k]);
                 integerconverter[arrayfiller]=arrayofinput[k];
                 arrayfiller++;
-
-
             }
             //converts number from string to int
             convertednumber=atoi(integerconverter);
@@ -429,49 +307,94 @@ for(i=0;i<cap;i++){
             outputarray[opt]=convertednumber;
             printf(" %d ", convertednumber);
         }
-
+        //need to make this insert -777 iterate opt
         else printf(" error: integer too long ");
 
 
     }
 
+    //need to make this insert number 3 then -777 iterate opt
     else printf(" Invalid symbol ");
     }
-       else if (isalpha(arrayofinput[i])){
 
-         for(int k = i; arrayofinput[k]; k ++)
+    //seperates words and identifiers
+    else if (isalpha(arrayofinput[i])){
+        int wordfound =0;
+        int wordstart;
+        int finalk;
+        int length;
+        char foundword[12];
+        char foundidentifier[12];
+        
+        for(int k = i; arrayofinput[k]; k++)
+        {
+            if(isalpha(arrayofinput[k])==0&&isdigit(arrayofinput[k])==0) break;
+            int spaceLeft = 0;
+
+            while(arrayofinput[k + spaceLeft] && spaceLeft < 11)
+            {
+                if(isalpha(arrayofinput[k + spaceLeft])==0&&isdigit(arrayofinput[k + spaceLeft])==0) break;
+                spaceLeft++;
+            }
+
+            for(int l = 0; l < spaceLeft ; l++)
+            {
+                if(isalpha(arrayofinput[k + l])==0&&isdigit(arrayofinput[k + l])==0) break;
+                window[l] = arrayofinput[k + l];
+            }
+            window[spaceLeft] = '\0';
+
+            for(int l = 0; l < spaceLeft; l++)
+            {
+                char buffer[12];
+                buffer[0] = '\0';
+                strncat(buffer, window, l + 1);
+                printf("\nbuffer is:%s\n", buffer);
+                if(checkTrie(root, buffer))
+                {
+                 //i+strlen(buffer);
+                    printf("reserved word found ");
+                    strcpy(foundword, buffer);
+                    // length=strlen(buffer);
+                    wordfound=1;
+                    break;
+                }
+                
+                if(wordfound==1) break;
+            }
+
+            //keeps track of where a reserved word starts/ where a identifier ends
+            finalk=k;
+            printf(" %d ", k);
+            printf(" %d ", i);
+            if(wordfound==1) break;
+    }
+
+    printf("final %d ", finalk);
+    if(finalk>i&&wordfound==0)
     {
-        int spaceLeft = 0;
+        for(int k = i; k<finalk; k++)
+        foundidentifier[k-i]=arrayofinput[k];
 
-        while(arrayofinput[k + spaceLeft] && spaceLeft < 11)
-        {
-            if(isalpha(arrayofinput[k + spaceLeft])==0&&isdigit(arrayofinput[k + spaceLeft])==0) break;
-            spaceLeft++;
-        }
-
-        for(int l = 0; l < spaceLeft ; l++)
-        {
-            window[l] = arrayofinput[k + l];
-        }
-        window[spaceLeft] = '\0';
-        //printf("\nwindow is:%s\n", window);
-
-        for(int l = 0; l < spaceLeft; l++)
-        {
-            char buffer[12];
-            buffer[0] = '\0';
-            strncat(buffer, window, l + 1);
-            printf("\nbuffer is:%s\n", buffer);
-         if(checkTrie(root, buffer)) printf("reserved word found ");
-        }
+        i=finalk;
+        printf(" i after no word: %d ", i);
     }
+    else if(wordfound==1)
+    {
+        for(int k = i; k<finalk; k++)
+        foundidentifier[k-i]=arrayofinput[k];
+
+        i=finalk+strlen(foundword)-1;
+        printf(" i after word: %d ", i);
     }
-
-
-
-
-
-
+    else
+    {
+        foundidentifier[0]=arrayofinput[i];
+        //printf(" identifier: %s ", foundidentifier);
+        i=finalk;
+        printf(" i after no word: %d ", i);}
+        printf(" identifier: %s ", foundidentifier);
+    }
 
 printf("|");
 opt++;
@@ -484,35 +407,8 @@ for(i=0;i<opt;i++){
     printf("%d ", outputarray[i]);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-deleteTrie(root);
-
-
-
-
-
-
-
-return 0;
+    deleteTrie(root);
+    
+    return 0;
 
 }
