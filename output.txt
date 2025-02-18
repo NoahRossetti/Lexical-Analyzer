@@ -1,0 +1,41 @@
+var x, y;
+begin
+y := 3;%
+x := y + 56;
+jjjjjjjjjrewerfewrjjjjjjjj
+end.
+jjjjjjjjjrewerfewrjjjjjjjj
+10000000
+%
+%
+jjjjjjjjjjjjjjjjj
+
+Lexeme Table:
+var 	29
+y 	0 
+, 	17
+y 	1 
+; 	18
+begin 	21
+y 	2 
+:= 	20
+3 	3 
+; 	18
+Error: invalid character 
+y 	3 
+:= 	20
+y 	4 
++ 	4
+3 	56 
+; 	18
+Error: ident too long 
+end 	22
+. 	19
+Error: ident too long 
+Error: integer too large 
+Error: invalid character 
+Error: invalid character 
+Error: ident too long 
+
+Output Table
+29 2 x 17 2 y 18 21 2 y 20 3 3 18 2 x 20 2 y 4 3 56 18 22 19 
