@@ -180,7 +180,7 @@ char window[12];
 int identtracker=0;
 // output array position tracker
 int opt;
-int outputarray[1000];
+int outputarray[1000]={ [0 ... 999]=-19};
 char arrayofinput[1000];
 char identifierTable[100][12];
 
