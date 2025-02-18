@@ -174,6 +174,7 @@ int commentflag=0;
 char temp;
 char test;
 char window[12];
+int identtracker=0;
 // output array position tracker
 int opt;
 int outputarray[1000];
@@ -291,7 +292,7 @@ if(outputfile==NULL){
 
 
 for(i=0;i<cap;i++){
-printf(" i top of loop: %d ", i);
+//printf(" i top of loop: %d ", i);
 //might need to add more symbols
 
 
@@ -412,12 +413,13 @@ printf(" i top of loop: %d ", i);
             char buffer[12];
             buffer[0] = '\0';
             strncat(buffer, window, l + 1);
-            printf("\nbuffer is:%s\n", buffer);
+           // printf("\nbuffer is:%s\n", buffer);
          if(checkTrie(root, buffer)){
             //i+strlen(buffer);
-          printf("reserved word found ");
+          printf(" reserved word found ");
           strcpy(foundword, buffer);
            // length=strlen(buffer);
+           printf(" %s ", foundword);
             wordfound=1;
             break;
           }
@@ -425,31 +427,45 @@ printf(" i top of loop: %d ", i);
         }
         //keeps track of where a reserved word starts/ where a identifier ends
         finalk=k;
-        printf(" %d ", k);
-         printf(" %d ", i);
+        //printf(" %d ", k);
+        // printf(" %d ", i);
          if(wordfound==1) break;
     }
 
-    printf("final %d ", finalk);
+    //printf("final %d ", finalk);
     if(finalk>i&&wordfound==0){
         for(int k = i; k<finalk; k++)
         foundidentifier[k-i]=arrayofinput[k];
+         outputarray[opt]=2;
+    opt++;
+    outputarray[opt]=identtracker;
+    strcpy(identifierTable[identtracker],foundidentifier);
+    printf(" identifier from table %s ", identifierTable[identtracker]);
+    identtracker++;
 
     i=finalk;
-    printf(" i after no word: %d ", i);
+    //printf(" i after no word: %d ", i);
     }
     else if(wordfound==1){
         for(int k = i; k<finalk; k++)
         foundidentifier[k-i]=arrayofinput[k];
 
     i=finalk+strlen(foundword)-1;
-    printf(" i after word: %d ", i);
+   // printf(" i after word: %d ", i);
     }
     else{ foundidentifier[0]=arrayofinput[i];
-    //printf(" identifier: %s ", foundidentifier);
-    i=finalk;
-    printf(" i after no word: %d ", i);}
     printf(" identifier: %s ", foundidentifier);
+    outputarray[opt]=2;
+    opt++;
+    outputarray[opt]=identtracker;
+    strcpy(identifierTable[identtracker],foundidentifier);
+    printf(" identifier from table %s ", identifierTable[identtracker]);
+    identtracker++;
+
+    i=finalk;
+   // printf(" i after no word: %d ", i);
+    }
+    //printf(" identifier: %s ", foundidentifier);
     }
 
 
