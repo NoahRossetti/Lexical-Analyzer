@@ -11,6 +11,7 @@ After identifying all the lexemes in the file, the program outputs a file contai
 ## Compilation Instructions
 To compile and run this program, first open a bash terminal and navigate to the directory containing lex.c and the input file.
 To compile, "gcc lex.c"
+To run program, "./a.out input.txt" (input.txt is a placeholder name it can be any file name)
 
 ## Usage
 [How to run the program, including any required arguments]
